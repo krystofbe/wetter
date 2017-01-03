@@ -1,0 +1,12 @@
+import Flock
+import VaporFlock
+
+Flock.use(Flock.Tools)
+Flock.use(Flock.Deploy)
+Flock.use(Flock.Vapor)
+
+Flock.configure(.always, with: Always()) // Located at config/deploy/Always.swift
+Flock.configure(.env("production"), with: Production()) // Located at config/deploy/Production.swift
+//Flock.configure(.env("staging"), with: Staging()) // Located at config/deploy/Staging.swift
+
+Flock.run()

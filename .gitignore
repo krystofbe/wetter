@@ -1,0 +1,9 @@
+Packages
+.build
+xcuserdata
+*.xcodeproj
+Config/secrets
+
+# Flock
+.flock/.build
+.flock/Packages

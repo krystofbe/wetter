@@ -1,0 +1,241 @@
+#extend("base")
+
+
+#export("body") {
+
+        
+        <div class="container">
+            <div class="page-header">
+                
+                <h1 class="page-header text-primary">Münster Wetter</h1>
+                <h1>#(unimuensterdaten.temperatur)<small> im Schlossviertel</small>
+                </h1>
+                <span class="label label-success">#(unimuensterdaten.wetterbeschreibung)</span>
+                <span class="label label-default"><b>Wind:</b> #(unimuensterdaten.windstärke)</span>
+                <span class="label label-info"><b>Sonnenaufgang:</b> #index(sunrisesunset, "0") Uhr</span>
+                <span class="label label-warning"><b>Sonnenuntergang:</b> #index(sunrisesunset, "1") Uhr</span>
+            </div>
+            
+            
+            <div class="container">
+                <div class="col-sm-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Meteogroup</h3>
+                        </div>
+                        <div class="panel-body">
+                            
+                            <div class="forecast-container">
+                                
+                                #loop(wetteronline, "wetter") {
+                                <div class="forecast">
+                                    <div class="forecast-header">
+                                        <div class="day">#(wetter.datum)</div>
+                                    </div> <!-- .forecast-header -->
+                                    <div class="forecast-content">
+                                        <div class="forecast-icon">
+                                            <img src="images/symbols/sym#(wetter.symbol).svg" alt="" width="56">
+                                                </div>
+                                        <div class="degree">#(wetter.höchsttemperatur)<sup>o</sup>C</div>
+                                        <small>#(wetter.tiefsttemperatur)<sup>o</sup></small>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-sm-4 -->
+                
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Langzeitvorhersage</h3>
+                        </div>
+                        <div class="panel-body">
+                            <img src="http://www.wetteronline.de/?pid=p_city_local&gid=10315&trendchart=true&diagram=true&c=f" alt="vorschau"/>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Vorhersagediagramm</h3>
+                        </div>
+                        <div class="panel-body">
+                            
+                            <img src="vorhersagegrafik.png" border="0" alt="vorhersagegrafik"/></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Regenradar</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div style="font-weight:bold; font-size:120%;top: 20px; left: 10px; display: block; position:relative;display: block;text-shadow: 1px 1px black;color:white;" id="uhrzeit"></div>
+
+
+                            #loop(radarbilder, "radarbild") {
+                            <img class="regen1" timestamp="#(radarbild.timestamp)" src="https://mtfm.wetteronline.de/tiles?hash=#(radarbild.hash)&id=#(radarbild.timestamp)&jpg_quality=80&production_line=#(radarbild.productionLine)&s=M0120&size=256&version=#(radarbild.version)&wrextent=europe&x=1024&y=768" /><img  timestamp="#(radarbild.timestamp)" class="regen2" src="https://mtfm.wetteronline.de/tiles?hash=#(radarbild.hash)&id=#(radarbild.timestamp)&jpg_quality=80&production_line=#(radarbild.productionLine)&s=M0120&size=256&version=#(radarbild.version)&wrextent=europe&x=1280&y=768" />
+                            }
+                            <br />
+                            #loop(radarbilder, "radarbild") {
+                            <img class="regen3" timestamp="#(radarbild.timestamp)" src="https://mtfm.wetteronline.de/tiles?hash=#(radarbild.hash)&id=#(radarbild.timestamp)&jpg_quality=80&production_line=#(radarbild.productionLine)&s=M0120&size=256&version=#(radarbild.version)&wrextent=europe&x=1024&y=1024" /><img timestamp="#(radarbild.timestamp)" class="regen4" src="https://mtfm.wetteronline.de/tiles?hash=#(radarbild.hash)&id=#(radarbild.timestamp)&jpg_quality=80&production_line=#(radarbild.productionLine)&s=M0120&size=256&version=#(radarbild.version)&wrextent=europe&x=1280&y=1024" />
+                            }
+                            
+                        </div>
+                        <script>
+                            var myIndex = 0;
+                            var myIndex2 = 0;
+                            var myIndex3 = 0;
+                            var myIndex4 = 0;
+
+
+                            carousel();
+                            
+                            function uhrzeit(imgName)
+                            {
+                                var utcDate = 		 berechneUhrzeit(imgName);
+                                
+                                if (utcDate > new Date())
+                                {
+                                    document.getElementById('uhrzeit').innerHTML=utcDate.toLocaleString()+ " Prognose ";
+                                    
+                                }
+                                else
+                                {
+                                    document.getElementById('uhrzeit').innerHTML=utcDate.toLocaleString() ;
+                                    
+                                }
+                                
+                            }
+                            
+                            function berechneUhrzeit(imgName)
+                            {
+                                // 20170101-1830
+                                var datumUngeparst = imgName.getAttribute("timestamp");;
+                                console.log(datumUngeparst);
+
+                                var utcDate = new Date();
+                                utcDate.setUTCFullYear(datumUngeparst.substring(0, 4));
+                                utcDate.setUTCMonth(datumUngeparst.substring(4, 6)-1);
+                                utcDate.setUTCDate(datumUngeparst.substring(6, 8));
+                                utcDate.setUTCHours(datumUngeparst.substring(9, 11));
+                                utcDate.setUTCMinutes(datumUngeparst.substring(11, 13));
+                                utcDate.setUTCSeconds(0);
+                                console.log(utcDate);
+                                return utcDate;
+                            }
+
+                            
+                            function carousel() {
+                                var i;
+
+                                
+                                var x = document.getElementsByClassName("regen1");
+                                for (i = 0; i < x.length; i++) {
+                                    x[i].style.display = "none";
+                                }
+                                myIndex++;
+                                if (myIndex > x.length) {myIndex = 1}    
+                                x[myIndex-1].style.display = "inline";
+                                
+                                
+                                var x = document.getElementsByClassName("regen2");
+                                for (i = 0; i < x.length; i++) {
+                                    x[i].style.display = "none";
+                                }
+                                myIndex2++;
+                                if (myIndex2 > x.length) {myIndex2 = 1}
+                                x[myIndex2-1].style.display = "inline";
+                                uhrzeit(x[myIndex2-1])
+                                
+                                var x = document.getElementsByClassName("regen3");
+                                for (i = 0; i < x.length; i++) {
+                                    x[i].style.display = "none";
+                                }
+                                myIndex3++;
+                                if (myIndex3 > x.length) {myIndex3 = 1}
+                                x[myIndex3-1].style.display = "inline";
+                                
+                                
+                                var x = document.getElementsByClassName("regen4");
+                                for (i = 0; i < x.length; i++) {
+                                    x[i].style.display = "none";
+                                }
+                                myIndex4++;
+                                if (myIndex4 > x.length) {myIndex4 = 1}
+                                x[myIndex4-1].style.display = "inline";
+                                
+                                
+                                
+                                setTimeout(carousel, 800); // Change image every 2 seconds
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Unwetterzentrale</h3>
+                        </div>
+                        <div class="panel-body" style="width:50%">
+                            #loop(unwetterzentrale, "warnung") {
+                            
+                            
+                            
+                            <div class="ober_farbe#(warnung.level)" style="padding: 10px 20px;">
+                                <div style="font-size: 18px; color:white;">
+                                    <b style="color: white;">Münster</b>
+                                </div> 
+                            </div>
+                            
+                            <div class="unter_farbe#(warnung.level)" style="padding: 0px;">
+                                <div style="float: left; color: white;">
+                                    <div style="width:402px;float:left;padding-left: 20px;padding-top:20px;padding-right:10px;padding-bottom:20px;">
+                                        <div style="font-size: 18px; margin-bottom: 10px;">
+                                            #(warnung.headline)
+                                        </div>
+                                        <div style="font-size: 12px; line-height: 130%;">
+                                            <span>gültig von:</span>
+                                            <b> #(warnung.start) Uhr</b>
+                                            <br>
+                                            <span>gültig bis:</span>
+                                            <b> #(warnung.end) Uhr</b>
+                                        </div> 
+                                    </div> 
+                                    <div style="float:left;display:block;width:117px;height:110px;padding-top:6px;">
+                                        <img src="images/warning.png" width="117" height="104">
+                                            </div> 
+                                </div> 
+                                <div style="float: right;">
+                                    &nbsp;
+                                </div> 
+                                <div class="clear"></div> 
+                            </div>
+                            <div style="border: 1px solid lightgrey; border-top: none; line-height: 150%; padding: 10px; font-size: 14px; color: grey;">
+                                #(warnung.description)
+                            </div>
+                            <br />
+    
+                            }
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        
+}
