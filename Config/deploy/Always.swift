@@ -9,6 +9,6 @@ class Always: Configuration {
 
 		// Optional config:
 		// Config.deployDirectory = "/var/www"
-		Config.swiftVersion = "https://swift.org/builds/swift-3.0.2-release/ubuntu1404/swift-3.0.2-RELEASE/swift-3.0.2-RELEASE-ubuntu14.04.tar.gz"
+		Config.swiftVersion = "https://swift.org/builds/swift-3.0.1-release/ubuntu1404/swift-3.0.1-RELEASE/swift-3.0.1-RELEASE-ubuntu14.04.tar.gz"
     }
 }

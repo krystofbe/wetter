@@ -1065,17 +1065,22 @@ final class MeteomediaWetter {
                 
                 
 
+                if
+                let datum = dateFormatter.date(from: node["dtg"] ?? "" )?.string(),
+                let tiefsttemperatur = nf.string(for: (Double(node["tn"] ?? "0")?.rounded())),
+                let höchsttemperatur = nf.string(for: (Double(node["tx_n"] ?? "0")?.rounded())),
+                let sonnenscheindauer = node["sun"],
+                let regenwahrscheinlichkeit = node["prrr"],
+                let symbol = node["symbol"],
+                let n = node["n"],
+                let ww = node["ww"],
+                let dictn = dict[n],
+                let dictww = dict[ww]
+                {
+                    let wettercode = dictn  + ";" + dictww
+                    alleTageswetter.append(Tageswetter(datum: datum, tiefsttemperatur: tiefsttemperatur, höchsttemperatur: höchsttemperatur, sonnenscheindauer: sonnenscheindauer, regenwahrscheinlichkeit: regenwahrscheinlichkeit, wettercode: wettercode, symbol: symbol))
+                }
                 
-                let datum = dateFormatter.date(from: node["dtg"] ?? "" )?.string() ?? ""
-                let tiefsttemperatur = nf.string(for: (Double(node["tn"] ?? "0")?.rounded()))!
-                let höchsttemperatur = nf.string(for: (Double(node["tx_n"] ?? "0")?.rounded()))!
-                let sonnenscheindauer = node["sun"] ?? ""
-                let regenwahrscheinlichkeit = node["prrr"] ?? ""
-                let symbol = node["symbol"] ?? ""
-                let wettercode = dict[node["n"]! + ";" + node["ww"]!]!
-                
-                alleTageswetter.append(Tageswetter(datum: datum, tiefsttemperatur: tiefsttemperatur, höchsttemperatur: höchsttemperatur, sonnenscheindauer: sonnenscheindauer, regenwahrscheinlichkeit: regenwahrscheinlichkeit, wettercode: wettercode, symbol: symbol))
-
 
         }
 
