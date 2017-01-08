@@ -18,12 +18,12 @@ final class WeatherController {
         {
             throw Abort.serverError
         }
-        let sunrisesunset = sunriseSunset()
+        //let sunrisesunset = sunriseSunset()
         let regenradar = Regenradar(drop: drop)
         
         return try drop.view.make("home", Node(node: [
             "unimuensterdaten": Node(node:unimuensterdaten),
-            "sunrisesunset": Node(node: [sunrisesunset.0, sunrisesunset.1]),
+            //"sunrisesunset": Node(node: [sunrisesunset.0, sunrisesunset.1]),
             "wetteronline": Node(node:alleTageswetter),
             "radarbilder": Node(node:regenradar.radarbilder),
             "unwetterzentrale": Node(node:Unwetterzentrale(drop:drop).alleWarnungen)
