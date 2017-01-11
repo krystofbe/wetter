@@ -21,12 +21,12 @@ class Tests: XCTestCase {
     }
 
     
-//    func testExample() {
-//      let model = MeteomediaWetter()
-//        print(model?.alleTageswetter)
-//        
-//    }
-//    
+    func testExample() {
+      let model = MeteomediaWetter()
+        print(model?.alleTageswetter)
+        
+    }
+    
     
         func testUnwetterzentrale() {
             let drop = Droplet()
