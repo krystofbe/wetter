@@ -84,7 +84,7 @@ final class MeteomediaWetter {
             for node in doc.xpath("//day") {
                 
                 print(dateFormatter.date(from: node["dtg"] ?? "" )?.string(format: "EEEE, d. MMM"))
-                print(nf.string(for: (Double(node["tn"] ?? "0")?.rounded())))
+                print(node["tn"])
                 print(nf.string(for: (Double(node["tx_n"] ?? "0")?.rounded())))
                 print(node["sun"])
                 print(node["prrr"])
