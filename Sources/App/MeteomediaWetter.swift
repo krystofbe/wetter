@@ -1066,7 +1066,7 @@ final class MeteomediaWetter {
                 
 
                 if
-                let datum = dateFormatter.date(from: node["dtg"] ?? "" )?.string(),
+                let datum = dateFormatter.date(from: node["dtg"] ?? "" )?.string(format: "EEEE, d. MMM"),
                 let tiefsttemperatur = nf.string(for: (Double(node["tn"] ?? "0")?.rounded())),
                 let höchsttemperatur = nf.string(for: (Double(node["tx_n"] ?? "0")?.rounded())),
                 let sonnenscheindauer = node["sun"],
@@ -1091,9 +1091,9 @@ final class MeteomediaWetter {
 }
 
 extension Date {
-    func string() -> String {
+    func string(format: String) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, d. MMM"
+        formatter.dateFormat = format
         return formatter.string(from: self)
     }
 }
