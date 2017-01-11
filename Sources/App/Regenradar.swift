@@ -17,7 +17,6 @@
 import Foundation
 import Vapor
 import Fluent
-import Kanna
 
 class Regenradar
 {

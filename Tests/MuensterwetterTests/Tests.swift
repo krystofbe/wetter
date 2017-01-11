@@ -21,7 +21,7 @@ class Tests: XCTestCase {
     }
 
     
-    func testExample() {
+    func testMeteomediaWetter() {
       let model = MeteomediaWetter()
         XCTAssertNotNil(model, "Model darf nicht nil sein")
         XCTAssertTrue(model!.alleTageswetter.count > 0)

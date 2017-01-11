@@ -68,7 +68,7 @@ final class MeteomediaWetter {
         
         // Load URL into Kanna
         guard let url = URL(string: "http://weatherpro.consumer.meteogroup.com/weatherpro/WeatherServiceFeed.php?format=xml&lid=18220778&mode=free&uuid=E12A0F7B-5C8E-4860-ABA9-F73C17230F63"),
-            let doc = XML(url:url, encoding: .utf8)
+            let doc = HTML(url:url, encoding: .utf8)
             else {
                 return nil
         }
