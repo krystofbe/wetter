@@ -86,13 +86,17 @@ final class MeteomediaWetter {
                 
                 if
                 let datum = dateFormatter.date(from: node["dtg"] ?? "" )?.string(format: "EEEE, d. MMM"),
-                let tiefsttemperatur = nf.string(for: (Double(node["tn"]!)!.rounded())),
-                let höchsttemperatur = nf.string(for: (Double(node["tx_n"]!)!.rounded())),
+                let tiefsttemperatur =  node["tn"] as String?,
+                let höchsttemperatur = node["tx_n"] as String?,
+                    let tiefsttemperaturNumber =  Double(tiefsttemperatur),
+                    let höchsttemperaturNumber = Double(höchsttemperatur),
+                let tiefsttemperaturFormatted = nf.string(for: tiefsttemperaturNumber),
+                let höchsttemperaturFormatted = nf.string(for: höchsttemperaturNumber),
                 let sonnenscheindauer = node["sun"],
                 let regenwahrscheinlichkeit = node["prrr"],
                 let symbol = node["symbol"]
                 {
-                    alleTageswetter.append(Tageswetter(datum: datum, tiefsttemperatur: tiefsttemperatur, höchsttemperatur: höchsttemperatur, sonnenscheindauer: sonnenscheindauer, regenwahrscheinlichkeit: regenwahrscheinlichkeit, symbol: symbol))
+                    alleTageswetter.append(Tageswetter(datum: datum, tiefsttemperatur: tiefsttemperaturFormatted, höchsttemperatur: höchsttemperaturFormatted, sonnenscheindauer: sonnenscheindauer, regenwahrscheinlichkeit: regenwahrscheinlichkeit, symbol: symbol))
                 }
                 
 
