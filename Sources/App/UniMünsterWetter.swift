@@ -68,7 +68,7 @@ final class UniMünsterWetter: Model {
             "temperatur": temperatur,
             "messzeit": messzeit,
             "windstärke": windstärke,
-            "wetterbeschreibungame": wetterbeschreibung
+            "wetterbeschreibung": wetterbeschreibung
             ])
     }
     

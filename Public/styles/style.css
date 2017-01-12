@@ -145,32 +145,34 @@ body{
     margin:0 auto;
 }
 
-.ober_farbe2 {
+.ober_farbe1 {
     background-color: #3d830a;
 }
-.unter_farbe2 {
+.unter_farbe1 {
     background-color: #45930c;
 }
-.ober_farbe4 {
+.ober_farbe3 {
     background-color: #e8a400;
 }
-.unter_farbe4 {
+.unter_farbe3 {
     background-color: #ffb400;
 }
-.ober_farbe3 {
+.ober_farbe2 {
     background-color: #f4dd1b;
-}3 {
+}
+
+.unter_farbe2 {
     background-color: #ffe818;
 }
-.ober_farbe5 {
+.ober_farbe4 {
     background-color: #c80000;
 }
-.unter_farbe5 {
+.unter_farbe4 {
     background-color: #e00000;
 }
-.ober_farbe6 {
+.ober_farbe5 {
     background-color: #ff00ff;
 }
-.unter_farbe6 {
+.unter_farbe5 {
     background-color: #ff00ff;
 }

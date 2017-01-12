@@ -35,7 +35,18 @@ class Tests: XCTestCase {
     
         }
     
-//    
+    func testUniMünsterWetter() {
+        let model = UniMünsterWetter()
+        
+        XCTAssertNotNil(model)
+        XCTAssertNotEqual(model?.wetterbeschreibung,"")
+        XCTAssertNotEqual(model?.messzeit,"")
+        XCTAssertNotEqual(model?.temperatur,"")
+        XCTAssertNotEqual(model?.windstärke,"")
+
+    }
+    
+//
 //    func testRegenradar()
 //    {
 //        let drop = Droplet()
