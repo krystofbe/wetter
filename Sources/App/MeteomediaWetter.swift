@@ -90,12 +90,12 @@ final class MeteomediaWetter {
                 let höchsttemperatur = node["tx_n"] as String?,
                     let tiefsttemperaturNumber =  Double(tiefsttemperatur),
                     let höchsttemperaturNumber = Double(höchsttemperatur),
-                let tiefsttemperaturFormatted = nf.string(for: tiefsttemperaturNumber),
-                let höchsttemperaturFormatted = nf.string(for: höchsttemperaturNumber),
                 let sonnenscheindauer = node["sun"],
                 let regenwahrscheinlichkeit = node["prrr"],
                 let symbol = node["symbol"]
                 {
+                    let tiefsttemperaturFormatted = String(format:"%.0f", tiefsttemperaturNumber)
+                    let höchsttemperaturFormatted = String(format:"%.0f", höchsttemperaturNumber)
                     alleTageswetter.append(Tageswetter(datum: datum, tiefsttemperatur: tiefsttemperaturFormatted, höchsttemperatur: höchsttemperaturFormatted, sonnenscheindauer: sonnenscheindauer, regenwahrscheinlichkeit: regenwahrscheinlichkeit, symbol: symbol))
                 }
                 
