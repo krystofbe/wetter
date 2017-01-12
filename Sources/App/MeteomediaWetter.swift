@@ -86,8 +86,8 @@ final class MeteomediaWetter {
                 
                 if
                 let datum = dateFormatter.date(from: node["dtg"] ?? "" )?.string(format: "EEEE, d. MMM"),
-                let tiefsttemperatur = nf.string(for: (Double(node["tn"]!)?.rounded())),
-                let höchsttemperatur = nf.string(for: (Double(node["tx_n"]!)?.rounded())),
+                let tiefsttemperatur = nf.string(for: (Double(node["tn"]!)!.rounded())),
+                let höchsttemperatur = nf.string(for: (Double(node["tx_n"]!)!.rounded())),
                 let sonnenscheindauer = node["sun"],
                 let regenwahrscheinlichkeit = node["prrr"],
                 let symbol = node["symbol"]
