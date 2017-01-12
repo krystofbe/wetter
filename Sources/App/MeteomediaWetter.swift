@@ -83,18 +83,11 @@ final class MeteomediaWetter {
         
             for node in doc.xpath("//day") {
                 
-                print(dateFormatter.date(from: node["dtg"] ?? "" )?.string(format: "EEEE, d. MMM"))
-                print(node["tn"])
-                print(nf.string(for: (Double(node["tx_n"] ?? "0")?.rounded())))
-                print(node["sun"])
-                print(node["prrr"])
-                print(node["symbol"])
-
                 
                 if
                 let datum = dateFormatter.date(from: node["dtg"] ?? "" )?.string(format: "EEEE, d. MMM"),
-                let tiefsttemperatur = nf.string(for: (Double(node["tn"] ?? "0")?.rounded())),
-                let höchsttemperatur = nf.string(for: (Double(node["tx_n"] ?? "0")?.rounded())),
+                let tiefsttemperatur = nf.string(for: (Double(node["tn"]!)?.rounded())),
+                let höchsttemperatur = nf.string(for: (Double(node["tx_n"]!)?.rounded())),
                 let sonnenscheindauer = node["sun"],
                 let regenwahrscheinlichkeit = node["prrr"],
                 let symbol = node["symbol"]
