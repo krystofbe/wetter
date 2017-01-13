@@ -35,6 +35,19 @@ class Tests: XCTestCase {
     
         }
     
+    func testBadHTTP()
+    {
+        do
+        {
+            let drop = Droplet()
+            let request = try drop.client.get("https://app-prod-ws.warnwetter.de/v11/warningOverview?points=7.6135%7C51.9507")
+        }
+        catch
+        {
+            print(error)
+        }
+    }
+    
     func testUniMünsterWetter() {
         let model = UniMünsterWetter()
         
