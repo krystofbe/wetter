@@ -34,7 +34,7 @@
                                     </div> <!-- .forecast-header -->
                                     <div class="forecast-content">
                                         <div class="forecast-icon">
-                                            <img src="wetter/images/symbols/sym#(wetter.symbol).svg" alt="" width="56">
+                                            <img src="images/symbols/sym#(wetter.symbol).svg" alt="" width="56">
                                                 </div>
                                         <div class="degree">#(wetter.höchsttemperatur)<sup>o</sup>C</div>
                                         <small>#(wetter.tiefsttemperatur)<sup>o</sup></small>
@@ -68,7 +68,7 @@
                         </div>
                         <div class="panel-body">
                             
-                            <img src="wetter/vorhersagegrafik.png" border="0" alt="vorhersagegrafik"/></div>
+                            <img src="vorhersagegrafik.png" border="0" alt="vorhersagegrafik"/></div>
                     </div>
                 </div>
             </div>
@@ -217,7 +217,7 @@
                                         </div> 
                                     </div> 
                                     <div style="float:left;display:block;width:117px;height:110px;padding-top:6px;">
-                                        <img src="wetter/images/warning.png" width="117" height="104">
+                                        <img src="images/warning.png" width="117" height="104">
                                             </div> 
                                 </div> 
                                 <div style="float: right;">

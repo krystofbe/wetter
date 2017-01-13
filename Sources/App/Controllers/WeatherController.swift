@@ -6,8 +6,8 @@ final class WeatherController {
     
     func addRoutes(drop: Droplet)
     {
-        drop.get("wetter", handler: indexView)
-        drop.get("wetter/vorhersagegrafik.png", handler: vorhersagegrafik)
+        drop.get("vorhersagegrafik.png", handler: vorhersagegrafik)
+        drop.get("/", handler: indexView)
     }
     
     func indexView(request: Request) throws -> ResponseRepresentable {
