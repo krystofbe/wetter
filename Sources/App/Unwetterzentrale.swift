@@ -79,7 +79,7 @@ final class Unwetterzentrale {
         
         
         if  let doc = try? Data(contentsOf: url!),
-            let request = try? drop.client.get("https://app-prod-ws.warnwetter.de/v11/warningOverview?points=7.6135%7C51.9507"),
+            let request = try? drop.client.get("http://www.proxy-service.de/proxy-service.php?u=http%3A%2F%2Fapp-prod-ws.warnwetter.de%2Fv11%2FwarningOverview%3Fpoints%3D7.6135%257C51.9507&b=0&f=norefer"),
             let json = request.json,
             let periods = json["warnings", "7.6135|51.9507"],
             let array = periods.array

@@ -25,8 +25,8 @@ final class WeatherController {
             "unimuensterdaten": Node(node:unimuensterdaten),
             "sunrisesunset": Node(node: [sunrisesunset.sunrise, sunrisesunset.sunset]),
             "wetteronline": Node(node:alleTageswetter),
-            "radarbilder": Node(node:regenradar.radarbilder)
-           // "unwetterzentrale": Node(node:Unwetterzentrale(drop:drop).alleWarnungen)
+            "radarbilder": Node(node:regenradar.radarbilder),
+            "unwetterzentrale": Node(node:Unwetterzentrale(drop:drop).alleWarnungen)
 
 
         ]))
