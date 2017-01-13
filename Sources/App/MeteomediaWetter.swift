@@ -64,11 +64,13 @@ final class MeteomediaWetter {
         var alleTageswetter = Array<Tageswetter>()
     
     
-    init?() {
+    init?(drop: Droplet) {
         
         // Load URL into Kanna
-        guard let url = URL(string: "http://weatherpro.consumer.meteogroup.com/weatherpro/WeatherServiceFeed.php?format=xml&lid=18220778&mode=free&uuid=E12A0F7B-5C8E-4860-ABA9-F73C17230F63"),
-            let doc = HTML(url:url, encoding: .utf8)
+        guard
+            let bytes: Bytes? = try? drop.client.get("http://weatherpro.consumer.meteogroup.com/weatherpro/WeatherServiceFeed.php?format=xml&lid=18220778&mode=free&uuid=E12A0F7B-5C8E-4860-ABA9-F73C17230F63").body.bytes ,
+            let htmlstring = String(bytes: bytes!, encoding: .utf8),
+            let doc = HTML(html: htmlstring, encoding: .utf8)
             else {
                 return nil
         }

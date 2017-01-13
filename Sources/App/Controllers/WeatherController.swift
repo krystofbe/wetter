@@ -11,8 +11,8 @@ final class WeatherController {
     }
     
     func indexView(request: Request) throws -> ResponseRepresentable {
-        guard let unimuensterdaten = UniMünsterWetter(),
-        let alleTageswetter = MeteomediaWetter()?.alleTageswetter
+        guard let unimuensterdaten = UniMünsterWetter(drop: drop),
+            let alleTageswetter = MeteomediaWetter(drop:drop)?.alleTageswetter
         
         else
         {

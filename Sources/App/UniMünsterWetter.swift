@@ -20,11 +20,13 @@ final class UniMünsterWetter: Model {
     var windstärke: String
     var wetterbeschreibung: String
     
-    init?() {
+    init?(drop: Droplet) {
         
         // Load URL into Kanna
-        guard let url = URL(string: "http://www.uni-muenster.de/Klima/wetter/wetter.php"),
-            let doc = HTML(url:url, encoding: .utf8)
+        guard
+            let bytes: Bytes? = try? drop.client.get("http://www.uni-muenster.de/Klima/wetter/wetter.php").body.bytes ,
+            let htmlstring = String(bytes: bytes!, encoding: .utf8),
+            let doc = HTML(html: htmlstring, encoding: .utf8)
             else {
                 return nil
         }

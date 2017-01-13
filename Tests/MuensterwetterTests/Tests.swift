@@ -22,7 +22,8 @@ class Tests: XCTestCase {
 
     
     func testMeteomediaWetter() {
-      let model = MeteomediaWetter()
+         let drop = Droplet()
+        let model = MeteomediaWetter(drop:drop)
         XCTAssertNotNil(model, "Model darf nicht nil sein")
         XCTAssertTrue(model!.alleTageswetter.count > 0)
     }
@@ -48,8 +49,10 @@ class Tests: XCTestCase {
         }
     }
     
-    func testUniMünsterWetter() {
-        let model = UniMünsterWetter()
+    func testUniMünsterWetter()
+    {
+        let drop = Droplet()
+        let model = UniMünsterWetter(drop: drop)
         
         XCTAssertNotNil(model)
         XCTAssertNotEqual(model?.wetterbeschreibung,"")
