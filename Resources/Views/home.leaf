@@ -4,7 +4,7 @@
 #export("body") {
 
         
-        <div class="container">
+
             <div class="page-header">
                 
                 <h1 class="page-header text-primary">Münster Wetter</h1>
@@ -17,18 +17,14 @@
             </div>
             
             
-            <div class="container">
+
                 <div class="col-sm-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Meteogroup</h3>
-                        </div>
-                        <div class="panel-body">
-                            
+
+
                             <div class="forecast-container">
                                 
                                 #loop(wetteronline, "wetter") {
-                                <div class="forecast">
+                                <div class="forecast #(wetter.cssClass)">
                                     <div class="forecast-header">
                                         <div class="day">#(wetter.datum)</div>
                                     </div> <!-- .forecast-header -->
@@ -42,8 +38,7 @@
                                 </div>
                                 }
                             </div>
-                        </div>
-                    </div>
+
                 </div>
                 <!-- /.col-sm-4 -->
                 
@@ -53,33 +48,25 @@
                             <h3 class="panel-title">Langzeitvorhersage</h3>
                         </div>
                         <div class="panel-body">
-                            <img src="http://www.wetteronline.de/?pid=p_city_local&gid=10315&trendchart=true&diagram=true&c=f" alt="vorschau"/>
+                            <img  class="img-responsive center-block" src="http://www.wetteronline.de/?pid=p_city_local&gid=10315&trendchart=true&diagram=true&c=f" alt="vorschau"/>
                         </div>
                     </div>
                 </div>
                 
-            </div>
-            
+          
+
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Vorhersagediagramm</h3>
-                        </div>
-                        <div class="panel-body">
-                            
-                            <img src="vorhersagegrafik.png" border="0" alt="vorhersagegrafik"/></div>
-                    </div>
+ 
+                            <img   class="img-responsive" src="vorhersagegrafik.png" border="0" alt="vorhersagegrafik"/>
                 </div>
             </div>
             
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Regenradar</h3>
-                        </div>
-                        <div class="panel-body">
+                    
+
+                        <div class="panel-body text-nowrap">
                             <div style="font-weight:bold; font-size:120%;top: 20px; left: 10px; display: block; position:relative;display: block;text-shadow: 1px 1px black;color:white;" id="uhrzeit"></div>
 
 
@@ -180,30 +167,26 @@
                                 setTimeout(carousel, 800); // Change image every 2 seconds
                             }
                         </script>
-                    </div>
+                    
                 </div>
             </div>
             
             
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Unwetterzentrale</h3>
-                        </div>
-                        <div class="panel-body" style="width:50%">
+                    <div style="max-width: 700px;min-width: 300px;">
+        
                             #loop(unwetterzentrale, "warnung") {
-                            
-                            
+                 
                             
                             <div class="ober_farbe#(warnung.level)" style="padding: 10px 20px;">
-                                <div style="font-size: 18px; color:white;">
-                                    <b style="color: white;">Münster</b>
+                                <div style="font-size: 18px;">
+                                    <b>Münster</b>
                                 </div> 
                             </div>
                             
                             <div class="unter_farbe#(warnung.level)" style="padding: 0px;">
-                                <div style="float: left; color: white;">
+                                <div style="float: left;">
                                     <div style="width:402px;float:left;padding-left: 20px;padding-top:20px;padding-right:10px;padding-bottom:20px;">
                                         <div style="font-size: 18px; margin-bottom: 10px;">
                                             #(warnung.headline)
@@ -232,9 +215,10 @@
     
                             }
                             
-                        </div>
-                    </div>
+                        
+                    
                 </div>
+            </div>
             </div>
             
         

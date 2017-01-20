@@ -19,8 +19,9 @@ struct Tageswetter : NodeConvertible
     var sonnenscheindauer: String
     var regenwahrscheinlichkeit: String
     var symbol: String
+    var cssClass: String
     
-    init(datum: String,tiefsttemperatur: String,höchsttemperatur: String,sonnenscheindauer: String,regenwahrscheinlichkeit: String, symbol: String)
+    init(datum: String,tiefsttemperatur: String,höchsttemperatur: String,sonnenscheindauer: String,regenwahrscheinlichkeit: String, symbol: String, cssClass: String)
     {
         self.datum = datum
         self.tiefsttemperatur = tiefsttemperatur
@@ -28,18 +29,21 @@ struct Tageswetter : NodeConvertible
         self.sonnenscheindauer = sonnenscheindauer
         self.regenwahrscheinlichkeit = regenwahrscheinlichkeit
         self.symbol = symbol
+        self.cssClass = cssClass
     }
     
     
     func makeNode(context: Context) throws -> Node
     {
-        let node = try Node(node: ["datum":datum, "tiefsttemperatur":tiefsttemperatur,"höchsttemperatur":höchsttemperatur, "sonnenscheindauer":sonnenscheindauer,"regenwahrscheinlichkeit":regenwahrscheinlichkeit, "symbol":symbol ] )
+        let node = try Node(node: ["datum":datum, "tiefsttemperatur":tiefsttemperatur,"höchsttemperatur":höchsttemperatur, "sonnenscheindauer":sonnenscheindauer,"regenwahrscheinlichkeit":regenwahrscheinlichkeit, "symbol":symbol, "cssClass":cssClass ] )
         return node
     }
     
     init(node: Node, in context: Context) throws
     {
     
+        let cssClass = (node["cssClass"]?.string) ?? ""
+
          let datum = (node["datum"]?.string) ?? ""
          let tiefsttemperatur = (node["tiefsttemperatur"]?.string) ?? ""
          let höchsttemperatur = (node["höchsttemperatur"]?.string) ?? ""
@@ -53,6 +57,7 @@ struct Tageswetter : NodeConvertible
             self.sonnenscheindauer = sonnenscheindauer
             self.regenwahrscheinlichkeit = regenwahrscheinlichkeit
             self.symbol = symbol
+            self.cssClass = cssClass
 
         
     }
@@ -82,12 +87,23 @@ final class MeteomediaWetter {
         let nf = NumberFormatter()
         nf.numberStyle = NumberFormatter.Style.decimal
         nf.maximumFractionDigits = 0
+        var count = 0
         
             for node in doc.xpath("//day") {
+                var cssClass = ""
                 
+                if (count > 3)
+                {
+                    cssClass = "hidden-xs"
+                }
+                
+                if (count > 4)
+                {
+                    break
+                }
                 
                 if
-                let datum = dateFormatter.date(from: node["dtg"] ?? "" )?.string(format: "EEEE, d. MMM"),
+                let datum = dateFormatter.date(from: node["dtg"] ?? "" )?.string(format: "EEEE"),
                 let tiefsttemperatur =  node["tn"] as String?,
                 let höchsttemperatur = node["tx_n"] as String?,
                     let tiefsttemperaturNumber =  Double(tiefsttemperatur),
@@ -98,9 +114,9 @@ final class MeteomediaWetter {
                 {
                     let tiefsttemperaturFormatted = String(format:"%.0f", tiefsttemperaturNumber)
                     let höchsttemperaturFormatted = String(format:"%.0f", höchsttemperaturNumber)
-                    alleTageswetter.append(Tageswetter(datum: datum, tiefsttemperatur: tiefsttemperaturFormatted, höchsttemperatur: höchsttemperaturFormatted, sonnenscheindauer: sonnenscheindauer, regenwahrscheinlichkeit: regenwahrscheinlichkeit, symbol: symbol))
+                    alleTageswetter.append(Tageswetter(datum: datum, tiefsttemperatur: tiefsttemperaturFormatted, höchsttemperatur: höchsttemperaturFormatted, sonnenscheindauer: sonnenscheindauer, regenwahrscheinlichkeit: regenwahrscheinlichkeit, symbol: symbol, cssClass:cssClass))
                 }
-                
+                count += 1
 
         }
 

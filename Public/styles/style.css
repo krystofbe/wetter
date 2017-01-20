@@ -60,24 +60,26 @@ body{
     font-weight:bold; font-size:120%;top: 20px; left: 10px; display: block; position:relative;display: block;text-shadow: 1px 1px #000000;color:#ffffff;
 }
 .forecast-container {
-    width: 100%;
     background: #fff;
     display: table;
     table-layout: fixed;
-    width: 100%;
     overflow: hidden;
     border-radius: 10px;
     
 }
 .forecast-container .forecast {
     display: table-cell;
-    vertical-align: top; }
+    vertical-align: top;
+    max-width: 150px;
+
+
+}
 .forecast-container .forecast:nth-child(even) {
     background-color: #F2F9FF; }
 @media screen and (max-width: 990px) {
     .forecast-container .forecast {
         display: block;
-        width: 16.6667%;
+
         float: left; } }
 .forecast-container .forecast.today {
     width: 420px; }
@@ -147,32 +149,42 @@ body{
 
 .ober_farbe1 {
     background-color: #3d830a;
+     color: white;
 }
 .unter_farbe1 {
     background-color: #45930c;
+     color: white;
 }
 .ober_farbe3 {
     background-color: #e8a400;
+     color: white;
 }
 .unter_farbe3 {
     background-color: #ffb400;
+     color: white;
 }
 .ober_farbe2 {
     background-color: #f4dd1b;
+    color: #645e06;
 }
 
 .unter_farbe2 {
     background-color: #ffe818;
+    color: #645e06;
 }
 .ober_farbe4 {
     background-color: #c80000;
+     color: white;
 }
 .unter_farbe4 {
     background-color: #e00000;
+     color: white;
 }
 .ober_farbe5 {
     background-color: #ff00ff;
+     color: white;
 }
 .unter_farbe5 {
     background-color: #ff00ff;
+     color: white;
 }
