@@ -1,48 +1,50 @@
-import Vapor
-import HTTP
-import Foundation
 
-final class WeatherController {
+
+
+
+import PerfectHTTP
+import PerfectMustache
+
+// Handler class
+// When referenced in a mustache template, this class will be instantiated to handle the request
+// and provide a set of values which will be used to complete the template.
+struct WeatherController: MustachePageHandler { // all template handlers must inherit from PageHandler
     
-    func addRoutes(drop: Droplet)
-    {
-        drop.get("vorhersagegrafik.png", handler: vorhersagegrafik)
-        drop.get("/", handler: indexView)
-    }
+//
+//    let regenradar = Regenradar(drop: drop)
+//    let sunrisesunset = SunriseSunset(drop: drop)
+//    return try drop.view.make("home", Node(node: [
+//    "unimuensterdaten": Node(node:unimuensterdaten),
+//    "sunrisesunset": Node(node: [sunrisesunset.sunrise, sunrisesunset.sunset]),
+//    "wetteronline": Node(node:alleTageswetter),
+//    "radarbilder": Node(node:regenradar.radarbilder),
+//    "unwetterzentrale": Node(node:Unwetterzentrale(drop:drop).alleWarnungen)
+//    
+//    
+//    ]))
     
-    func indexView(request: Request) throws -> ResponseRepresentable {
-        guard let unimuensterdaten = UniMünsterWetter(drop: drop),
-            let alleTageswetter = MeteomediaWetter(drop:drop)?.alleTageswetter
+    func extendValuesForResponse(context contxt: MustacheWebEvaluationContext, collector: MustacheEvaluationOutputCollector) {
+      
+        var values = MustacheEvaluationContext.MapType()
+
+        let unims = UniMünsterWetter()
+        let meteomedia = MeteomediaWetter()
+        let sunrisesunset = SunriseSunset()
+        let regenradar = Regenradar()
         
-        else
-        {
-            throw Abort.serverError
+        values["unimuensterdaten"] = unims?.data
+        values["meteomedia"] = meteomedia?.ary
+        values["sunrisesunset"] = sunrisesunset?.data
+        values["regenradar"] = regenradar?.ary
+
+        contxt.extendValues(with: values)
+        do {
+            try contxt.requestCompleted(withCollector: collector)
+        } catch {
+            let response = contxt.webResponse
+            response.status = .internalServerError
+            response.appendBody(string: "\(error)")
+            response.completed()
         }
-        
-        let regenradar = Regenradar(drop: drop)
-        let sunrisesunset = SunriseSunset(drop: drop)
-        return try drop.view.make("home", Node(node: [
-            "unimuensterdaten": Node(node:unimuensterdaten),
-            "sunrisesunset": Node(node: [sunrisesunset.sunrise, sunrisesunset.sunset]),
-            "wetteronline": Node(node:alleTageswetter),
-            "radarbilder": Node(node:regenradar.radarbilder),
-            "unwetterzentrale": Node(node:Unwetterzentrale(drop:drop).alleWarnungen)
-
-
-        ]))
     }
-    
-
-    
-    func vorhersagegrafik(request: Request) throws -> ResponseRepresentable {
-        let response = Response(status: .ok)
-        response.headers["Content-Type"] = "image/png"
-        
-        let spotifyResponse = try drop.client.get("http://wetterstationen.meteomedia.de/messnetz/vorhersagegrafik/103130.png")
-        response.body = spotifyResponse.body
-        //esponse.body = nil
-        return response
-    }
-   
-    
 }
