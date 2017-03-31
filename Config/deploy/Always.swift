@@ -5,7 +5,7 @@ class Always: Configuration {
 		// UPDATE THESE VALUES BEFORE USING FLOCK:
     Config.projectName = "muensterwetter"
 		Config.executableName = "App" // Same as Config.projectName unless your project is divided into modules
-		Config.repoURL = "git@gitlab.com:krystofbe/muensterwetter.git"
+		Config.repoURL = "https://github.com/krystofbe/muensterwetter.git"
 
 		// Optional config:
 		// Config.deployDirectory = "/var/www"
