@@ -15,82 +15,49 @@
 //
 
 import Foundation
-import Vapor
-import Fluent
+import PerfectLib
+import PerfectHTTP
+import PerfectHTTPServer
+import PerfectCURL
 
 class Regenradar
 {
 
-    struct RegenradarBild : NodeConvertible
-    {
-        var timestamp: String
-        var productionLine: String
-        var version: String
-        var hash: String
 
-        
-        init(timestamp: String,productionLine: String, version: String, hash: String)
-        {
-            self.timestamp = timestamp
-            self.productionLine = productionLine
-            self.version = version
-            self.hash = hash
-
-        }
-        
-        
-        func makeNode(context: Context) throws -> Node
-        {
-            let node = try Node(node: ["timestamp":timestamp, "productionLine":productionLine, "version":version, "hash": hash ] )
-            return node
-        }
-        
-        init(node: Node, in context: Context) throws
-        {
-            
-            let timestamp = (node["timestamp"]?.string) ?? ""
-            let productionLine = (node["productionLine"]?.string) ?? ""
-            let version = (node["version"]?.string) ?? ""
-            let hash = (node["hash"]?.string) ?? ""
-
-
-            
-            self.timestamp = timestamp
-            self.productionLine = productionLine
-            self.version = version
-            self.hash = hash
-
-            
-        }
-        
-    }
     
     
-var radarbilder = Array<RegenradarBild>()
+    var ary = [[String:Any]]()
 
 
-init(drop: Droplet) {
-    if let request = try? drop.client.get("https://mtfm.wetteronline.de/metadata?&bev=1&wrextent=europe"),
-        let periods = request.json!["periods", "current_15"],
-        let array = periods.array
+init?() {
+    
+    let curlObject = CURL(url: "https://mtfm.wetteronline.de/metadata?&bev=1&wrextent=europe")
+    let curlResult =  curlObject.performFully()
+    let bytes =  curlResult.2
+    
+    
+    if
+        let htmlstring = String(bytes: bytes, encoding: .utf8),
+        let decoded = try? htmlstring.jsonDecode() as? [String:Any],
+        let array = (decoded?["periods"]as?[String: Any])?["current_15"]as? Array<[String: Any]>
     {
         let MAX_FUTURE = 3
         var futureCounter = 0
         for current_15 in array
         {
-            if let period = current_15.object,
-                let timestamp = period["timestamp"]?.string,
-                let designation = period["designation"]?.string,
-                let query = period["query"]?.object,
-                let productionLine = query["production_line"]?.string,
-                let version = query["version"]?.string,
-                let hash = query["hash"]?.string
+            if
+                let timestamp = current_15["timestamp"] as? String,
+                let designation = current_15["designation"]as? String,
+                let query = current_15["query"] as? [String: Any],
+                let productionLine = query["production_line"]as? String,
+                let version = query["version"]as? String,
+                let hash = query["hash"]as? String
 
             {
             
             if  futureCounter < MAX_FUTURE
             {
-                radarbilder.append(RegenradarBild(timestamp: timestamp, productionLine: productionLine,version: version, hash: hash))
+                ary.append(["timestamp":timestamp, "productionLine":productionLine,"version":version, "hash":hash])
                 
                 if (designation == "future")
                 {
@@ -100,5 +67,7 @@ init(drop: Droplet) {
             }
         }
     }
+    else
+    {return nil}
 }
 }

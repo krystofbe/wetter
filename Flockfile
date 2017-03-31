@@ -1,9 +1,9 @@
 import Flock
-import VaporFlock
+import PerfectFlock
 
 Flock.use(Flock.Tools)
 Flock.use(Flock.Deploy)
-Flock.use(Flock.Vapor)
+Flock.use(Flock.Perfect)
 
 Flock.configure(.always, with: Always()) // Located at config/deploy/Always.swift
 Flock.configure(.env("production"), with: Production()) // Located at config/deploy/Production.swift

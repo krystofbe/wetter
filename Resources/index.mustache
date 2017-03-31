@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="styles/style.css">
+
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<title>M&uuml;nster-Wetter</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<![endif]-->
+<script type="text/javascript" src="javascript/animR2.js" ></script>
+<script type="text/javascript" src="javascript/imageloader.js" ></script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<h1 class="page-header text-primary">Münster Wetter</h1>
+
+<h1>{{unimuensterdaten.temperatur}}<small> im Schlossviertel</small>
+</h1>
+<span class="label label-success"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span> {{unimuensterdaten.wetterbeschreibung}} </span>
+<span class="label label-default"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span> {{unimuensterdaten.windstärke}} </span>
+<span class="label label-info"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> {{sunrisesunset.sunrise}} Uhr </span>
+<span class="label label-warning"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> {{sunrisesunset.sunset}} Uhr </span>
+</div><!-- ./col-md-12 -->
+</div><!-- /.row -->
+</div><!-- /.container -->
+
+
+
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+
+<br />
+
+<div class="forecast-container">
+
+{{#meteomedia}}
+<div class="forecast {{wetter.cssClass}}">
+<div class="forecast-header">
+<div class="day">{{datum}}</div>
+</div> <!-- .forecast-header -->
+<div class="forecast-content">
+<div class="forecast-icon">
+<img src="images/symbols/sym{{symbol}}.svg" alt="" width="56">
+</div>
+<div class="degree">{{höchsttemperatur}}<sup>o</sup>C</div>
+<small>{{tiefsttemperatur}}<sup>o</sup></small>
+</div>
+</div>
+{{/meteomedia}}
+
+
+</div>
+
+<br>
+
+</div><!-- ./col-md-6 -->
+
+<div class="col-md-6">
+<br />
+<img  class="img-responsive" src="http://www.wetteronline.de/?pid=p_city_local&gid=10315&trendchart=true&diagram=true&c=f" alt="vorschau"/>
+
+</div><!-- /.col-md-6 -->
+
+</div><!-- /.row -->
+
+</div><!-- /.container -->
+
+
+
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<img   class="img-responsive" src="vorhersagegrafik.png" border="0" alt="vorhersagegrafik"/>
+</div><!-- ./col-md-12 -->
+</div><!-- /.row -->
+</div><!-- /.container -->
+
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<div class="text-nowrap">
+<div style="font-weight:bold; font-size:120%;top: 20px; left: 10px; display: block; position:relative;display: block;text-shadow: 1px 1px black;color:white;" id="uhrzeit"></div>
+
+
+{{#regenradar}}
+<img class="regen1" timestamp="{{timestamp}}" src="https://mtfm.wetteronline.de/tiles?hash={{hash}}&id={{timestamp}}&jpg_quality=80&production_line={{productionLine}}&s=M0120&size=256&version={{version}}&wrextent=europe&x=1024&y=768" /><img  timestamp="{{timestamp}}" class="regen2" src="https://mtfm.wetteronline.de/tiles?hash={{hash}}&id={{timestamp}}&jpg_quality=80&production_line={{productionLine}}&s=M0120&size=256&version={{version}}&wrextent=europe&x=1280&y=768" /><img  timestamp="{{timestamp}}" class="regen5" src="https://mtfm.wetteronline.de/tiles?hash={{hash}}&id={{timestamp}}&jpg_quality=80&production_line={{productionLine}}&s=M0120&size=256&version={{version}}&wrextent=europe&x=1536&y=768" />
+{{/regenradar}}
+
+<br />
+{{#regenradar}}
+<img class="regen3" timestamp="{{timestamp}}" src="https://mtfm.wetteronline.de/tiles?hash={{hash}}&id={{timestamp}}&jpg_quality=80&production_line={{productionLine}}&s=M0120&size=256&version={{version}}&wrextent=europe&x=1024&y=1024" /><img  timestamp="{{timestamp}}" class="regen4" src="https://mtfm.wetteronline.de/tiles?hash={{hash}}&id={{timestamp}}&jpg_quality=80&production_line={{productionLine}}&s=M0120&size=256&version={{version}}&wrextent=europe&x=1280&y=1024" /><img  timestamp="{{timestamp}}" class="regen6" src="https://mtfm.wetteronline.de/tiles?hash={{hash}}&id={{timestamp}}&jpg_quality=80&production_line={{productionLine}}&s=M0120&size=256&version={{version}}&wrextent=europe&x=1536&y=1024" />
+{{/regenradar}}
+
+
+</div>
+<script>
+var myIndex = 0;
+var myIndex2 = 0;
+var myIndex3 = 0;
+var myIndex4 = 0;
+var myIndex5 = 0;
+var myIndex6 = 0;
+
+
+carousel();
+
+function uhrzeit(imgName)
+{
+var utcDate = 		 berechneUhrzeit(imgName);
+
+if (utcDate > new Date())
+{
+document.getElementById('uhrzeit').innerHTML=utcDate.toLocaleString()+ " Prognose ";
+
+}
+else
+{
+document.getElementById('uhrzeit').innerHTML=utcDate.toLocaleString() ;
+
+}
+
+}
+
+function berechneUhrzeit(imgName)
+{
+// 20170101-1830
+var datumUngeparst = imgName.getAttribute("timestamp");;
+
+var utcDate = new Date();
+utcDate.setUTCFullYear(datumUngeparst.substring(0, 4));
+utcDate.setUTCMonth(datumUngeparst.substring(4, 6)-1);
+utcDate.setUTCDate(datumUngeparst.substring(6, 8));
+utcDate.setUTCHours(datumUngeparst.substring(9, 11));
+utcDate.setUTCMinutes(datumUngeparst.substring(11, 13));
+utcDate.setUTCSeconds(0);
+return utcDate;
+}
+
+
+function carousel() {
+var i;
+
+
+var x = document.getElementsByClassName("regen1");
+for (i = 0; i < x.length; i++) {
+x[i].style.display = "none";
+}
+myIndex++;
+if (myIndex > x.length) {myIndex = 1}
+x[myIndex-1].style.display = "inline";
+
+
+var x = document.getElementsByClassName("regen2");
+for (i = 0; i < x.length; i++) {
+x[i].style.display = "none";
+}
+myIndex2++;
+if (myIndex2 > x.length) {myIndex2 = 1}
+x[myIndex2-1].style.display = "inline";
+uhrzeit(x[myIndex2-1])
+
+var x = document.getElementsByClassName("regen3");
+for (i = 0; i < x.length; i++) {
+x[i].style.display = "none";
+}
+myIndex3++;
+if (myIndex3 > x.length) {myIndex3 = 1}
+x[myIndex3-1].style.display = "inline";
+
+
+var x = document.getElementsByClassName("regen4");
+for (i = 0; i < x.length; i++) {
+x[i].style.display = "none";
+}
+myIndex4++;
+if (myIndex4 > x.length) {myIndex4 = 1}
+x[myIndex4-1].style.display = "inline";
+
+var x = document.getElementsByClassName("regen5");
+for (i = 0; i < x.length; i++) {
+x[i].style.display = "none";
+}
+myIndex5++;
+if (myIndex5 > x.length) {myIndex5 = 1}
+x[myIndex5-1].style.display = "inline";
+
+
+
+
+var x = document.getElementsByClassName("regen6");
+for (i = 0; i < x.length; i++) {
+x[i].style.display = "none";
+}
+myIndex6++;
+if (myIndex6 > x.length) {myIndex6 = 1}
+x[myIndex6-1].style.display = "inline";
+
+
+
+
+setTimeout(carousel, 800); // Change image every 2 seconds
+}
+</script>
+
+
+</div><!-- ./col-md-12 -->
+</div><!-- /.row -->
+</div><!-- /.container -->
+
+
+<!--
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<br />
+<div style="max-width: 700px;min-width: 300px;">
+
+#loop(unwetterzentrale, "warnung") {
+
+
+<div class="ober_farbe#(warnung.level)" style="padding: 10px 20px;">
+<div style="font-size: 18px;">
+<b>Münster</b>
+</div>
+</div>
+
+<div class="unter_farbe#(warnung.level)" style="padding: 0px;">
+<div style="float: left;">
+<div style="width:402px;float:left;padding-left: 20px;padding-top:20px;padding-right:10px;padding-bottom:20px;">
+<div style="font-size: 18px; margin-bottom: 10px;">
+#(warnung.headline)
+</div>
+<div style="font-size: 12px; line-height: 130%;">
+<span>gültig von:</span>
+<b> #(warnung.start) Uhr</b>
+<br>
+<span>gültig bis:</span>
+<b> #(warnung.end) Uhr</b>
+</div>
+</div>
+<div style="float:left;display:block;width:117px;height:110px;padding-top:6px;">
+<img src="images/warning.png" width="117" height="104">
+</div>
+</div>
+<div style="float: right;">
+&nbsp;
+</div>
+<div class="clear"></div>
+</div>
+<div style="border: 1px solid lightgrey; border-top: none; line-height: 150%; padding: 10px; font-size: 14px; color: grey;">
+#(warnung.description)
+</div>
+<br />
+
+}
+
+
+
+</div>
+</div><!-- ./col-md-12 -->
+</div><!-- /.row -->
+</div><!-- /.container -->
+
+
+<div class="col-md-12 text-center">
+<div id="footer">
+&copy; 2017 <strong>krystof.eu</strong>
+</div>
+</div>
+
+</div>
+</body>
+</html>
+
+
+
+
+
+
+

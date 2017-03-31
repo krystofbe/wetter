@@ -1,12 +1,8 @@
 {
    "dependencies" : [
        {
-           "url" : "https://github.com/krystofbe/Flock.git",
-           "major": 0
-       },
-       {
-         "url" : "https://github.com/krystofbe/VaporFlock.git",
-        "version": "0.0.5"
+         "url" : "https://github.com/jakeheis/PerfectFlock.git",
+        "version": "0.0.3"
        }
    ]
 }

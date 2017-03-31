@@ -7,25 +7,24 @@
 //
 
 import Foundation
-import Vapor
-import Fluent
+import PerfectLib
+import PerfectHTTP
+import PerfectHTTPServer
 import Kanna
+import PerfectCURL
 
-final class UniMünsterWetter: Model {
+struct UniMünsterWetter{
     
 
-    var id: Node?
-    var temperatur: String
-    var messzeit: String
-    var windstärke: String
-    var wetterbeschreibung: String
-    
-    init?(drop: Droplet) {
+    var data = Dictionary<String, String>()
+    init?() {
         
-        // Load URL into Kanna
+        let curlObject = CURL(url: "http://www.uni-muenster.de/Klima/wetter/wetter.php")
+        let curlResult =  curlObject.performFully()
+        
+        let bytes =  curlResult.2
         guard
-            let bytes: Bytes? = try? drop.client.get("http://www.uni-muenster.de/Klima/wetter/wetter.php").body.bytes ,
-            let htmlstring = String(bytes: bytes!, encoding: .utf8),
+        let htmlstring = String(bytes: bytes, encoding: .utf8),
             let doc = HTML(html: htmlstring, encoding: .utf8)
             else {
                 return nil
@@ -33,49 +32,36 @@ final class UniMünsterWetter: Model {
         
         // get all td objects
         let xpath = doc.xpath("//td")
-        guard let   temperatur = xpath[6].text?.trim(),
-            let      messzeit = xpath[3].text?.trim(),
-            let      windstärke = xpath[18].text?.trim(),
-            let      wetterbeschreibung = xpath[36].text?.trim()
+        guard let   temperatur = xpath[6].innerHTML?.trim(),
+            let      messzeit = xpath[3].innerHTML?.trim(),
+            let      windstärke = xpath[18].innerHTML?.trim(),
+            let      wetterbeschreibung = xpath[36].innerHTML?.trim()
             else {
                 return nil
         }
         
         
         //DEBUG
-        //    var i = 0
-        //    for node in doc.xpath("//td") {
-        //        print("\(i):  + \(node.text!)")
-        //        i += 1
-        //    }
+//            var i = 0
+//            for node in doc.xpath("//td") {
+//                print("\(i):  + \(node.text!)")
+//                i += 1
+//            }
         
-        self.temperatur = temperatur
-        self.messzeit = messzeit
-        self.windstärke = windstärke
-        self.wetterbeschreibung = wetterbeschreibung
-    }
-    
-    init(node: Node, in context: Context) throws {
-        id = try node.extract("id")
-        temperatur = try node.extract("temperatur")
-        messzeit = try node.extract("messzeit")
-        windstärke = try node.extract("windstärke")
-        wetterbeschreibung = try node.extract("wetterbeschreibung")
+        data["temperatur"] = temperatur
+        data["messzeit"] = messzeit
+        data["windstärke"] = windstärke
+        data["wetterbeschreibung"] = wetterbeschreibung
 
     }
     
-    func makeNode(context: Context) throws -> Node {
-        return try Node(node: [
-            "id": id,
-            "temperatur": temperatur,
-            "messzeit": messzeit,
-            "windstärke": windstärke,
-            "wetterbeschreibung": wetterbeschreibung
-            ])
-    }
+   
     
-    static func prepare(_ database: Database) throws {}
-    
-    static func revert(_ database: Database) throws {}
-    
+}
+extension String
+{
+func trim() -> String
+{
+    return self.replacingOccurrences(of: "\n", with: "", options: String.CompareOptions.regularExpression, range: nil)
+}
 }

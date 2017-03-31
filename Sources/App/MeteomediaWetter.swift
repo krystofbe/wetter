@@ -1,4 +1,4 @@
-//
+
 //  Wetteronline.swift
 //  muensterwetter
 //
@@ -7,78 +7,33 @@
 //
 
 import Foundation
-import Vapor
-import Fluent
+import PerfectLib
+import PerfectHTTP
+import PerfectHTTPServer
 import Kanna
+import PerfectCURL
 
-struct Tageswetter : NodeConvertible
-{
-    var datum: String
-    var tiefsttemperatur: String
-    var höchsttemperatur: String
-    var sonnenscheindauer: String
-    var regenwahrscheinlichkeit: String
-    var symbol: String
-    var cssClass: String
+ struct MeteomediaWetter {
     
-    init(datum: String,tiefsttemperatur: String,höchsttemperatur: String,sonnenscheindauer: String,regenwahrscheinlichkeit: String, symbol: String, cssClass: String)
-    {
-        self.datum = datum
-        self.tiefsttemperatur = tiefsttemperatur
-        self.höchsttemperatur = höchsttemperatur
-        self.sonnenscheindauer = sonnenscheindauer
-        self.regenwahrscheinlichkeit = regenwahrscheinlichkeit
-        self.symbol = symbol
-        self.cssClass = cssClass
-    }
-    
-    
-    func makeNode(context: Context) throws -> Node
-    {
-        let node = try Node(node: ["datum":datum, "tiefsttemperatur":tiefsttemperatur,"höchsttemperatur":höchsttemperatur, "sonnenscheindauer":sonnenscheindauer,"regenwahrscheinlichkeit":regenwahrscheinlichkeit, "symbol":symbol, "cssClass":cssClass ] )
-        return node
-    }
-    
-    init(node: Node, in context: Context) throws
-    {
-    
-        let cssClass = (node["cssClass"]?.string) ?? ""
+    var ary = [[String:Any]]()
 
-         let datum = (node["datum"]?.string) ?? ""
-         let tiefsttemperatur = (node["tiefsttemperatur"]?.string) ?? ""
-         let höchsttemperatur = (node["höchsttemperatur"]?.string) ?? ""
-         let sonnenscheindauer = (node["sonnenscheindauer"]?.string) ?? ""
-         let regenwahrscheinlichkeit = (node["regenwahrscheinlichkeit"]?.string) ?? ""
-        let  symbol = (node["symbol"]?.string) ?? ""
 
-            self.datum = datum
-            self.tiefsttemperatur = tiefsttemperatur
-            self.höchsttemperatur = höchsttemperatur
-            self.sonnenscheindauer = sonnenscheindauer
-            self.regenwahrscheinlichkeit = regenwahrscheinlichkeit
-            self.symbol = symbol
-            self.cssClass = cssClass
-
-        
-    }
-    
-}
-
-final class MeteomediaWetter {
-    
-        var alleTageswetter = Array<Tageswetter>()
-    
-    
-    init?(drop: Droplet) {
+    init?() {
         
         // Load URL into Kanna
+        
+        let curlObject = CURL(url: "http://weatherpro.consumer.meteogroup.com/weatherpro/WeatherServiceFeed.php?format=xml&lid=18220778&mode=free&uuid=E12A0F7B-5C8E-4860-ABA9-F73C17230F63")
+        let curlResult =  curlObject.performFully()
+        
+        let bytes =  curlResult.2
         guard
-            let bytes: Bytes? = try? drop.client.get("http://weatherpro.consumer.meteogroup.com/weatherpro/WeatherServiceFeed.php?format=xml&lid=18220778&mode=free&uuid=E12A0F7B-5C8E-4860-ABA9-F73C17230F63").body.bytes ,
-            let htmlstring = String(bytes: bytes!, encoding: .utf8),
+            let htmlstring = String(bytes: bytes, encoding: .utf8),
             let doc = HTML(html: htmlstring, encoding: .utf8)
             else {
                 return nil
         }
+        
+      
         
                //DEBUG
         let dateFormatter = DateFormatter()
@@ -114,10 +69,20 @@ final class MeteomediaWetter {
                 {
                     let tiefsttemperaturFormatted = String(format:"%.0f", tiefsttemperaturNumber)
                     let höchsttemperaturFormatted = String(format:"%.0f", höchsttemperaturNumber)
-                    alleTageswetter.append(Tageswetter(datum: datum, tiefsttemperatur: tiefsttemperaturFormatted, höchsttemperatur: höchsttemperaturFormatted, sonnenscheindauer: sonnenscheindauer, regenwahrscheinlichkeit: regenwahrscheinlichkeit, symbol: symbol, cssClass:cssClass))
+                    
+                    ary.append([
+                        "datum":datum,
+                        "tiefsttemperatur":tiefsttemperaturFormatted,
+                        "höchsttemperatur":höchsttemperaturFormatted,
+                        "sonnenscheindauer":sonnenscheindauer,
+                        "regenwahrscheinlichkeit":regenwahrscheinlichkeit,
+                        "symbol":symbol,
+                        "cssClass":cssClass
+                        ])
                 }
-                count += 1
-
+                count+=1
+                
+                
         }
 
     }
