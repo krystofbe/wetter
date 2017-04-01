@@ -228,34 +228,34 @@ setTimeout(carousel, 800); // Change image every 2 seconds
 </div><!-- /.container -->
 
 
-<!--
+
 <div class="container">
 <div class="row">
 <div class="col-md-12">
 <br />
 <div style="max-width: 700px;min-width: 300px;">
 
-#loop(unwetterzentrale, "warnung") {
+{{#unwetter}}
 
 
-<div class="ober_farbe#(warnung.level)" style="padding: 10px 20px;">
+<div class="ober_farbe{{level}}" style="padding: 10px 20px;">
 <div style="font-size: 18px;">
-<b>Münster</b>
+<b>{{regionName}}</b>
 </div>
 </div>
 
-<div class="unter_farbe#(warnung.level)" style="padding: 0px;">
+<div class="unter_farbe{{level}}" style="padding: 0px;">
 <div style="float: left;">
 <div style="width:402px;float:left;padding-left: 20px;padding-top:20px;padding-right:10px;padding-bottom:20px;">
 <div style="font-size: 18px; margin-bottom: 10px;">
-#(warnung.headline)
+{{headline}}
 </div>
 <div style="font-size: 12px; line-height: 130%;">
 <span>gültig von:</span>
-<b> #(warnung.start) Uhr</b>
+<b> {{start}} Uhr</b>
 <br>
 <span>gültig bis:</span>
-<b> #(warnung.end) Uhr</b>
+<b> {{end}} Uhr</b>
 </div>
 </div>
 <div style="float:left;display:block;width:117px;height:110px;padding-top:6px;">
@@ -268,11 +268,12 @@ setTimeout(carousel, 800); // Change image every 2 seconds
 <div class="clear"></div>
 </div>
 <div style="border: 1px solid lightgrey; border-top: none; line-height: 150%; padding: 10px; font-size: 14px; color: grey;">
-#(warnung.description)
+{{description}}
 </div>
 <br />
 
-}
+{{/unwetter}}
+
 
 
 

@@ -31,11 +31,13 @@ struct WeatherController: MustachePageHandler { // all template handlers must in
         let meteomedia = MeteomediaWetter()
         let sunrisesunset = SunriseSunset()
         let regenradar = Regenradar()
-        
+        let unwetter = Unwetterzentrale()
+
         values["unimuensterdaten"] = unims?.data
         values["meteomedia"] = meteomedia?.ary
         values["sunrisesunset"] = sunrisesunset?.data
         values["regenradar"] = regenradar?.ary
+        values["unwetter"] = unwetter?.ary
 
         contxt.extendValues(with: values)
         do {
