@@ -28,17 +28,21 @@
 <body>
 
 
-<div class="container">
-<div class="row">
-<div class="col-md-12">
-<h1 class="page-header text-primary">Münster Wetter</h1>
 
+<div class="container">
+
+<div class="row">
+
+<div class="col-md-12">
+
+<h1 class="page-header text-primary">Münster Wetter</h1>
+<div class="alert alert-warning" role="alert">Entschuldigung für den Serverfehler der letzten Tage. Ich habe die Wetterseite nun auf ein anderes Swift Backend portiert.</div>
 <h1>{{unimuensterdaten.temperatur}}<small> im Schlossviertel</small>
 </h1>
-<span class="label label-success"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span> {{unimuensterdaten.wetterbeschreibung}} </span>
-<span class="label label-default"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span> {{unimuensterdaten.windstärke}} </span>
-<span class="label label-info"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> {{sunrisesunset.sunrise}} Uhr </span>
-<span class="label label-warning"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> {{sunrisesunset.sunset}} Uhr </span>
+<span class="label label-success"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span> {{unimuensterdaten.wetterbeschreibung}} </span>&nbsp;
+<span class="label label-default"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span> {{unimuensterdaten.windstärke}} </span>&nbsp;
+<span class="label label-info"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> {{sunrisesunset.sunrise}} Uhr </span>&nbsp;
+<span class="label label-warning"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> {{sunrisesunset.sunset}} Uhr </span>&nbsp;
 </div><!-- ./col-md-12 -->
 </div><!-- /.row -->
 </div><!-- /.container -->
