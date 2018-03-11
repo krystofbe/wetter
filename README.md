@@ -1,15 +1,20 @@
-# Basic Template
+# Wetter
 
-A basic vapor template for starting a new Vapor web application. If you're using vapor toolbox, you can use: `vapor new --template=basic`
+To start your Phoenix server:
 
-## 📖 Documentation
+  * Install dependencies with `mix deps.get`
+  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
+  * Install Node.js dependencies with `cd assets && npm install`
+  * Start Phoenix endpoint with `mix phx.server`
 
-Visit the Vapor web framework's [documentation](http://docs.vapor.codes) for instructions on how to use this package.
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-## 💧 Community
+Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
-Join the welcoming community of fellow Vapor developers in [slack](http://vapor.team).
+## Learn more
 
-## 🔧 Compatibility
-
-This package has been tested on macOS and Ubuntu.
+  * Official website: http://www.phoenixframework.org/
+  * Guides: http://phoenixframework.org/docs/overview
+  * Docs: https://hexdocs.pm/phoenix
+  * Mailing list: http://groups.google.com/group/phoenix-talk
+  * Source: https://github.com/phoenixframework/phoenix
