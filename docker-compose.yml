@@ -15,6 +15,6 @@ services:
       PORT: 4000
       POOL_SIZE: 10
     ports:
-      - "4000:4000"
+      - "4004:4000"
     depends_on:
       - db
