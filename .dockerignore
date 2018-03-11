@@ -1,0 +1,5 @@
+_build
+deps
+test
+assets/node_modules
+.elixir_ls

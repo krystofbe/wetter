@@ -1,8 +1,0 @@
-{
-   "dependencies" : [
-       {
-         "url" : "https://github.com/krystofbe/PerfectFlock.git",
-        "version": "0.0.5"
-       }
-   ]
-}
