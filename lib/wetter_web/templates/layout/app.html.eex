@@ -29,7 +29,7 @@
       </nav>
     </header> 
 
-      <main role="main" class="container">
+      <main class="container">
         <%= render @view_module, @view_template, assigns %>
       </main>
 
