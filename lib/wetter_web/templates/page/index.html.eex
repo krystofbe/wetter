@@ -1,210 +1,82 @@
 <div class="row">
-  <div class="col-md-12">
-    <div class="alert alert-info mt-2" role="alert"><i class="fa fa-info-circle"></i>
-
-Sorry für die Downtime. Die Seite sollte jetzt wieder komplett verfügbar sein.</div>
-    <h1>
-      <%= Map.fetch!(@university_data, :temperature) %>°C
-        <small>im Schlossviertel</small>
-    </h1>
-    <span class="badge badge-success">
+   <div class="col-md-12 mt-3">
+      <h1>
+         <%= Map.fetch!(@university_data, :temperature) %>&#x2103;
+         <small>im Schlossviertel</small>
+      </h1>
+      <span class="badge badge-success">
       <i class="fa fa-cloud"></i>
       <%= Map.fetch!(@university_data, :description) %>
-    </span>&nbsp;
-    <span class="badge badge-primary">
+      </span>&nbsp;
+      <span class="badge badge-primary">
       <i class="fa fa-flag"></i>
       <%= Map.fetch!(@university_data, :wind_speed) %>
-    </span>&nbsp;
-    <span class="badge badge-info">
+      </span>&nbsp;
+      <span class="badge badge-info">
       <i class="fa fa-angle-double-up"></i>
       <%= @sunrise %> Uhr </span>&nbsp;
-    <span class="badge badge-warning">
+      <span class="badge badge-warning">
       <i class="fa fa-angle-double-down"></i>
       <%= @sunset %> Uhr </span>&nbsp;
-  </div>
-  <!-- ./col-md-12 -->
+   </div>
+   <!-- ./col-md-12 -->
 </div>
 <!-- /.row -->
-
-
 <div class="container mt-5">
-  <div class="row">
-
-
-    <!-- /.col-md-6 -->
-    <div class="col-md-9 m-0 p-0">
-      <img class="img-fluid" src="http://wetterstationen.meteomedia.de/messnetz/vorhersagegrafik/103130.png?ver=1520770212" alt="vorhersagegrafik" />
-    </div>
-    <div class="col-md-3">
-      <br />
-      <img class="img-responsive" src="http://www.wetteronline.de/?pid=p_city_local&gid=10315&trendchart=true&diagram=true&c=f"
-        alt="vorschau" />
-
-    </div>
-    <!-- ./col-md-12 -->
-  </div>
-  <!-- /.row -->
-</div>
-<!-- /.container -->
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-12 m-0 p-0">
-      <div class="text-nowrap">
-        <div style="font-weight:bold; font-size:120%;top: 30px; left: 10px; display: block; position:relative;display: block;text-shadow: 1px 1px black;color:white;"
-          id="uhrzeit"></div>
-
-        <%= Enum.map(@rain_radar_data, fn(item) -> %>
-          <img alt="rain radar tile" class="regen1" data-timestamp="<%= Map.get(item, "timestamp") %>" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1024&y=768"
-          /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen2" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1280&y=768"
-          /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen5" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1536&y=768"
-          />
-          <% end) %>
-
-            <br />
-
-            <%= Enum.map(@rain_radar_data, fn(item) -> %>
-              
-                <img alt="rain radar tile" class="regen3" data-timestamp="<%= Map.get(item, "timestamp") %>" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1024&y=1024"
-                /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen4" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1280&y=1024"
-                /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen6" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1536&y=1024"
-                />
-                <% end) %>
-
-
-
+   <div class="row">
+      <!-- /.col-md-6 -->
+      <div class="col-md-9 m-0 p-0">
+         <img class="img-fluid" src="http://wetterstationen.meteomedia.de/messnetz/vorhersagegrafik/103130.png?ver=1520770212" alt="vorhersagegrafik" />
       </div>
-      <script>
-        var myIndex = 0;
-        var myIndex2 = 0;
-        var myIndex3 = 0;
-        var myIndex4 = 0;
-        var myIndex5 = 0;
-        var myIndex6 = 0;
-
-
-        carousel();
-
-        function uhrzeit(imgName) {
-          var utcDate = berechneUhrzeit(imgName);
-
-          if (utcDate > new Date()) {
-            document.getElementById('uhrzeit').innerHTML = utcDate.toLocaleString() + " Prognose ";
-
-          }
-          else {
-            document.getElementById('uhrzeit').innerHTML = utcDate.toLocaleString();
-
-          }
-
-        }
-
-        function berechneUhrzeit(imgName) {
-          // 20170101-1830
-          var datumUngeparst = imgName.getAttribute("data-timestamp");;
-
-          var utcDate = new Date();
-          utcDate.setUTCFullYear(datumUngeparst.substring(0, 4));
-          utcDate.setUTCMonth(datumUngeparst.substring(4, 6) - 1);
-          utcDate.setUTCDate(datumUngeparst.substring(6, 8));
-          utcDate.setUTCHours(datumUngeparst.substring(9, 11));
-          utcDate.setUTCMinutes(datumUngeparst.substring(11, 13));
-          utcDate.setUTCSeconds(0);
-          return utcDate;
-        }
-
-
-        function carousel() {
-          var i;
-
-
-          var x = document.getElementsByClassName("regen1");
-          for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-          }
-          myIndex++;
-          if (myIndex > x.length) { myIndex = 1 }
-          x[myIndex - 1].style.display = "inline";
-
-
-          var x = document.getElementsByClassName("regen2");
-          for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-          }
-          myIndex2++;
-          if (myIndex2 > x.length) { myIndex2 = 1 }
-          x[myIndex2 - 1].style.display = "inline";
-          uhrzeit(x[myIndex2 - 1])
-
-          var x = document.getElementsByClassName("regen3");
-          for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-          }
-          myIndex3++;
-          if (myIndex3 > x.length) { myIndex3 = 1 }
-          x[myIndex3 - 1].style.display = "inline";
-
-
-          var x = document.getElementsByClassName("regen4");
-          for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-          }
-          myIndex4++;
-          if (myIndex4 > x.length) { myIndex4 = 1 }
-          x[myIndex4 - 1].style.display = "inline";
-
-          var x = document.getElementsByClassName("regen5");
-          for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-          }
-          myIndex5++;
-          if (myIndex5 > x.length) { myIndex5 = 1 }
-          x[myIndex5 - 1].style.display = "inline";
-
-
-
-
-          var x = document.getElementsByClassName("regen6");
-          for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-          }
-          myIndex6++;
-          if (myIndex6 > x.length) { myIndex6 = 1 }
-          x[myIndex6 - 1].style.display = "inline";
-
-
-
-
-          setTimeout(carousel, 800); // Change image every 2 seconds
-        }
-      </script>
-
-
-    </div>
-    <!-- ./col-md-12 -->
-  </div>
-  <!-- /.row -->
+      <div class="col-md-3">
+         <br />
+         <img class="img-responsive" src="http://www.wetteronline.de/?pid=p_city_local&gid=10315&trendchart=true&diagram=true&c=f"
+            alt="vorschau" />
+      </div>
+      <!-- ./col-md-12 -->
+   </div>
+   <!-- /.row -->
 </div>
 <!-- /.container -->
-
-
-
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <%= raw(@severe_weather_data) %>
-
-    </div>
-    <!-- ./col-md-12 -->
-  </div>
-  <!-- /.row -->
+   <div class="row">
+      <div class="col-md-12 m-0 p-0">
+         <div class="text-nowrap">
+            <div style="font-weight:bold; font-size:120%;top: 30px; left: 10px; display: block; position:relative;display: block;text-shadow: 1px 1px black;color:white;"
+               id="uhrzeit"></div>
+            <%= Enum.map(@rain_radar_data, fn(item) -> %>
+            <img alt="rain radar tile" class="regen1" data-timestamp="<%= Map.get(item, "timestamp") %>" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1024&y=768"
+               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen2" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1280&y=768"
+               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen5" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1536&y=768"
+               />
+            <% end) %>
+            <br />
+            <%= Enum.map(@rain_radar_data, fn(item) -> %>
+            <img alt="rain radar tile" class="regen3" data-timestamp="<%= Map.get(item, "timestamp") %>" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1024&y=1024"
+               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen4" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1280&y=1024"
+               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen6" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1536&y=1024"
+               />
+            <% end) %>
+         </div>
+      </div>
+      <!-- ./col-md-12 -->
+   </div>
+   <!-- /.row -->
 </div>
 <!-- /.container -->
-
-
+<div class="container">
+   <div class="row">
+      <div class="col-md-12">
+         <%= raw(@severe_weather_data) %>
+      </div>
+      <!-- ./col-md-12 -->
+   </div>
+   <!-- /.row -->
+</div>
+<!-- /.container -->
 <div class="col-md-12 text-center">
-  <div id="footer">
-    &copy; 2018
-    <strong>krystof.eu</strong>
-  </div>
+   <div id="footer">
+      &copy; 2018
+      <strong>krystof.eu</strong>
+   </div>
 </div>
