@@ -8,12 +8,15 @@ defmodule Wetter.Unwetterzentrale do
         |> Floki.find("#content")
         |> Floki.filter_out("script")
         |> Floki.filter_out("noscript")
+        |> Floki.filter_out("ul")
+        |> Floki.filter_out("p")
+        |> Floki.filter_out("hr")
         |> Floki.raw_html()
         |> String.replace("../images", "http://www.unwetterzentrale.de/images")
         |> String.replace("<img ", "<img alt=\"unwetterzentrale\" ")
         |> String.replace(
-          "background-color: #ffe818;",
-          "background-color: #ffe818; height: 200px;"
+          "padding: 0px;",
+          "padding: 0px; overflow: hidden;"
         )
         |> String.replace("h1", "h3")
 
