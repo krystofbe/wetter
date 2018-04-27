@@ -11,7 +11,7 @@ defmodule Wetter.Application do
       # Start the Ecto repository
       supervisor(Wetter.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(WetterWeb.Endpoint, []),
+      supervisor(WetterWeb.Endpoint, [])
       # Start your own worker by calling: Wetter.Worker.start_link(arg1, arg2, arg3)
       # worker(Wetter.Worker, [arg1, arg2, arg3]),
     ]
