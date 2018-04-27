@@ -1,4 +1,5 @@
-version: '2'
+version: '3.2'
+
 services:
   db:
     image: postgres:9.6.2
@@ -8,13 +9,15 @@ services:
   web:
     build: .
     environment:
-      - MIX_ENV=prod
-    command: sh -c "mix ecto.create && mix ecto.migrate && mix phx.server"
-    environment:
-      DATABASE_URL: "ecto://postgres:postgres@db/wetter"
+      MIX_ENV: "prod"
+      DATABASE_URL: "ecto://postgres:postgres@db/wn"
       PORT: 4000
       POOL_SIZE: 10
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      PGPASSWORD: postgres
     ports:
       - "4004:4000"
+    command:
+      - ./docker-compose.sh
     depends_on:
       - db
