@@ -19,7 +19,8 @@
     "brunch": "2.10.9",
     "clean-css-brunch": "2.10.0",
     "copycat-brunch": "^1.1.0",
-    "sass-brunch": "^2.10.4",
+    "sass-brunch":
+      "brunch/sass-brunch#2d47094d8c259f07030a99433bc935d1ab753914",
     "uglify-js-brunch": "2.10.0"
   }
 }
