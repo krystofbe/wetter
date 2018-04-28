@@ -24,7 +24,14 @@ RUN mix phx.digest
 # Generate release
 RUN mix release --env=prod
 
-FROM bitwalker/alpine-erlang:20.2.2
+FROM alpine:3.6
+
+RUN apk add --no-cache \
+    ncurses-libs \
+    zlib \
+    ca-certificates \
+    openssl \
+    bash
 
 WORKDIR /opt/app
 
