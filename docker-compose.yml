@@ -1,24 +1,13 @@
 version: '3.2'
 
 services:
-  db:
-    image: postgres:9.6.2
-    environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
   web:
     build: .
     environment:
       SENTRY_DSN: ${SENTRY_DSN}
-      MIX_ENV: "prod"
-      DATABASE_URL: "ecto://postgres:postgres@db/wn"
       PORT: 4000
-      POOL_SIZE: 10
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
-      PGPASSWORD: postgres
+      HOST: "wetter.krystof.eu"
     ports:
       - "4004:4000"
-    command:
-      - ./docker-compose.sh
-    depends_on:
-      - db
+    command: foreground

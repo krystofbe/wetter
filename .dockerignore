@@ -1,5 +1,7 @@
-_build
-deps
-test
-assets/node_modules
+!_build/prod/rel
 .elixir_ls
+.git
+assets/node_modules
+deps
+priv/static
+test

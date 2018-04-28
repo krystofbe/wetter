@@ -1,12 +1,40 @@
-FROM bitwalker/alpine-elixir-phoenix
+FROM bitwalker/alpine-elixir-phoenix as build
 
-RUN apk add python2 \
-    tzdata \
-    postgresql-client \
-    && rm -rf /var/cache/apk/*
+ENV MIX_ENV prod
 
+# Add the files to the image
+ADD . . 
+
+# Cache Elixir deps
+RUN mix deps.get --only prod
+RUN mix deps.compile
+
+WORKDIR assets
+# Cache Node deps
+RUN npm i
+
+# Compile JavaScript
+RUN npm run deploy
+
+WORKDIR ..
+# Compile app
+RUN mix compile
+RUN mix phx.digest
+
+# Generate release
+RUN mix release --env=prod
+
+FROM bitwalker/alpine-erlang:20.2.2
+
+WORKDIR /opt/app
+
+# Set environment variables
+ENV MIX_ENV=prod
+
+COPY --from=build /opt/app/_build/prod/rel/wetter .
+
+# Set timezone
 ENV TZ Europe/Berlin
 
-
-WORKDIR /app
-COPY . .
+# Set entrypoint
+ENTRYPOINT ["./bin/wetter"]

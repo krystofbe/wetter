@@ -6,7 +6,6 @@
 use Mix.Config
 
 # General application configuration
-config :wetter, ecto_repos: [Wetter.Repo]
 
 # Configures the endpoint
 config :wetter, WetterWeb.Endpoint,

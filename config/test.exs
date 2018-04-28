@@ -8,12 +8,3 @@ config :wetter, WetterWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
-
-# Configure your database
-config :wetter, Wetter.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "wetter_test",
-  hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
