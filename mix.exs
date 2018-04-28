@@ -20,7 +20,7 @@ defmodule Wetter.Mixfile do
   def application do
     [
       mod: {Wetter.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :sentry]
     ]
   end
 
@@ -44,7 +44,8 @@ defmodule Wetter.Mixfile do
       {:floki, "~> 0.20.0"},
       {:httpoison, "~> 1.0"},
       {:solar, "~> 0.1.0"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:sentry, "~> 6.2.0"}
     ]
   end
 

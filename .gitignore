@@ -16,6 +16,7 @@
 
 # Environment configuration
 /.envrc
+/.env
 /.tool-versions
 
 # nvs
