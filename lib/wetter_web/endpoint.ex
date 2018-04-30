@@ -1,5 +1,6 @@
 defmodule WetterWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :wetter
+  use Sentry.Phoenix.Endpoint
 
   socket("/socket", WetterWeb.UserSocket)
 

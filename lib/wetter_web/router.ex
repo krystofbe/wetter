@@ -1,6 +1,5 @@
 defmodule WetterWeb.Router do
   use WetterWeb, :router
-  use Sentry.Plug
 
   pipeline :browser do
     plug(:accepts, ["html"])
