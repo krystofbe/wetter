@@ -12,7 +12,7 @@ defmodule Wetter.Unwetterzentrale do
         |> Floki.filter_out("p")
         |> Floki.filter_out("hr")
         |> Floki.raw_html()
-        |> String.replace("../images", "http://www.unwetterzentrale.de/images")
+        |> String.replace("../images", "/unwetterzentrale")
         |> String.replace("<img ", "<img alt=\"unwetterzentrale\" ")
         |> String.replace(
           "padding: 0px;",

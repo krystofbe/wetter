@@ -18,6 +18,10 @@ defmodule WetterWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :index)
+    get("/tiles/", ImageController, :wetteronline)
+    get("/trendchart/", ImageController, :trendchart)
+    get("/vorhersagegrafik/", ImageController, :meteomedia)
+    get("/unwetterzentrale/icons/:icon", ImageController, :unwetterzentrale)
   end
 
   # Other scopes may use custom stacks.

@@ -26,11 +26,11 @@
    <div class="row">
       <!-- /.col-md-6 -->
       <div class="col-md-9 m-0 p-0">
-         <img class="img-fluid" src="http://wetterstationen.meteomedia.de/messnetz/vorhersagegrafik/103130.png?ver=1520770212" alt="vorhersagegrafik" />
+         <img class="img-fluid" src="/vorhersagegrafik" alt="vorhersagegrafik" />
       </div>
       <div class="col-md-3">
          <br />
-         <img class="img-responsive" src="http://www.wetteronline.de/?pid=p_city_local&gid=10315&trendchart=true&diagram=true&c=f"
+         <img class="img-responsive" src="/trendchart"
             alt="vorschau" />
       </div>
       <!-- ./col-md-12 -->
@@ -45,16 +45,16 @@
             <div style="font-weight:bold; font-size:120%;top: 30px; left: 10px; display: block; position:relative;display: block;text-shadow: 1px 1px black;color:white;"
                id="uhrzeit"></div>
             <%= Enum.map(@rain_radar_data, fn(item) -> %>
-            <img alt="rain radar tile" class="regen1" data-timestamp="<%= Map.get(item, "timestamp") %>" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1024&y=768"
-               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen2" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1280&y=768"
-               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen5" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1536&y=768"
+            <img alt="rain radar tile" class="regen1" data-timestamp="<%= Map.get(item, "timestamp") %>" src="/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1024&y=768"
+               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen2" src="/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1280&y=768"
+               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen5" src="/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1536&y=768"
                />
             <% end) %>
             <br />
             <%= Enum.map(@rain_radar_data, fn(item) -> %>
-            <img alt="rain radar tile" class="regen3" data-timestamp="<%= Map.get(item, "timestamp") %>" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1024&y=1024"
-               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen4" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1280&y=1024"
-               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen6" src="https://mtfm.wetteronline.de/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1536&y=1024"
+            <img alt="rain radar tile" class="regen3" data-timestamp="<%= Map.get(item, "timestamp") %>" src="/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1024&y=1024"
+               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen4" src="/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1280&y=1024"
+               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen6" src="/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1536&y=1024"
                />
             <% end) %>
          </div>
