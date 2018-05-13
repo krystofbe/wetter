@@ -1,7 +1,8 @@
 /* This file is for your main application css. */
-$fa-font-path: "../fonts";
-@import "font-awesome";
-@import "bootstrap";
+$fa-font-path: "~font-awesome/fonts"; // this would normally go in a settings/variables file
+@import "~font-awesome/scss/font-awesome"; // this would go with the rest of your imports
+@import "~bootstrap/scss/bootstrap";
+
 @import "custom";
 
 #content {
@@ -50,4 +51,22 @@ body > .container {
 
 code {
   font-size: 80%;
+}
+
+.loading-spinner {
+  width: 100%;
+  max-width: 420px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.rainradar__headline {
+  font-weight: bold;
+  font-size: 120%;
+  top: 30px;
+  left: 10px;
+  display: block;
+  position: relative;
+  display: block;
+  text-shadow: 1px 1px black;
+  color: white;
 }

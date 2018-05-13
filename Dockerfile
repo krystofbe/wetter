@@ -14,7 +14,7 @@ WORKDIR assets
 RUN npm i
 
 # Compile JavaScript
-RUN npm run deploy
+RUN npm run build
 
 WORKDIR ..
 # Compile app

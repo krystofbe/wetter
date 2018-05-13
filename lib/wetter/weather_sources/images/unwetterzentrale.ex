@@ -1,4 +1,5 @@
 defmodule Wetter.Images.Unwetterzentrale do
+  require Logger
   @icon_url "http://www.unwetterzentrale.de/images/icons/"
 
   def icon(icon) do
@@ -7,10 +8,12 @@ defmodule Wetter.Images.Unwetterzentrale do
         body
 
       {:ok, %HTTPoison.Response{status_code: 404}} ->
-        IO.puts("Not found :(")
+        Logger.error("404. icon not found")
+        {:error, "404. icon not found"}
 
       {:error, %HTTPoison.Error{reason: reason}} ->
-        IO.inspect(reason)
+        Logger.error("Wetteronline icon not found" <> Atom.to_string(reason))
+        {:error, "404. icon not found"}
     end
   end
 end

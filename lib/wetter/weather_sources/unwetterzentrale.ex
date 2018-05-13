@@ -1,4 +1,5 @@
 defmodule Wetter.Unwetterzentrale do
+  require Logger
   @url "http://www.unwetterzentrale.de/uwz/getwarning_de.php?id=UWZDE48145"
 
   def download_and_parse_severe_weather_data do
@@ -21,10 +22,12 @@ defmodule Wetter.Unwetterzentrale do
         |> String.replace("h1", "h3")
 
       {:ok, %HTTPoison.Response{status_code: 404}} ->
-        IO.puts("Not found :(")
+        Logger.error("404. Wetteronline rain radar tile not found")
+        "Error 404. Please try again later."
 
       {:error, %HTTPoison.Error{reason: reason}} ->
-        IO.inspect(reason)
+        Logger.error("Wetteronline rain radar tile not found" <> Atom.to_string(reason))
+        "Error. Please try again later."
     end
   end
 end

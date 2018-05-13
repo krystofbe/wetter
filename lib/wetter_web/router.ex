@@ -24,6 +24,12 @@ defmodule WetterWeb.Router do
     get("/unwetterzentrale/icons/:icon", ImageController, :unwetterzentrale)
   end
 
+  scope "/api", WetterWeb do
+    pipe_through(:api)
+    get("/university_data", ApiController, :university_data)
+    get("/rainradar", ApiController, :rainradar)
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", WetterWeb do
   #   pipe_through :api

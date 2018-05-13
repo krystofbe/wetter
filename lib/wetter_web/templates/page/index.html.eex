@@ -1,82 +1,49 @@
 <div class="row">
-   <div class="col-md-12 mt-3">
-      <h1>
-         <%= Map.fetch!(@university_data, :temperature) %>&#x2103;
-         <small>im Schlossviertel</small>
-      </h1>
-      <span class="badge badge-success">
-      <i class="fa fa-cloud"></i>
-      <%= Map.fetch!(@university_data, :description) %>
-      </span>&nbsp;
-      <span class="badge badge-primary">
-      <i class="fa fa-flag"></i>
-      <%= Map.fetch!(@university_data, :wind_speed) %>
-      </span>&nbsp;
-      <span class="badge badge-info">
-      <i class="fa fa-angle-double-up"></i>
-      <%= @sunrise %> Uhr </span>&nbsp;
-      <span class="badge badge-warning">
-      <i class="fa fa-angle-double-down"></i>
-      <%= @sunset %> Uhr </span>&nbsp;
-   </div>
-   <!-- ./col-md-12 -->
+  <div class="col-md-12 mt-3">
+    <div id="temperature-data">
+    </div>
+  </div>
+  <!-- ./col-md-12 -->
 </div>
 <!-- /.row -->
 <div class="container mt-5">
-   <div class="row">
-      <!-- /.col-md-6 -->
-      <div class="col-md-9 m-0 p-0">
-         <img class="img-fluid" src="/vorhersagegrafik" alt="vorhersagegrafik" />
-      </div>
-      <div class="col-md-3">
-         <br />
-         <img class="img-responsive" src="/trendchart"
-            alt="vorschau" />
-      </div>
-      <!-- ./col-md-12 -->
-   </div>
-   <!-- /.row -->
+  <div class="row">
+    <!-- /.col-md-6 -->
+    <div class="col-md-9 m-0 p-0">
+      <img class="img-fluid" src="/vorhersagegrafik" alt="vorhersagegrafik" />
+    </div>
+    <div class="col-md-3">
+      <br />
+      <img class="img-responsive" src="/trendchart" alt="vorschau" />
+    </div>
+    <!-- ./col-md-12 -->
+  </div>
+  <!-- /.row -->
 </div>
 <!-- /.container -->
 <div class="container">
-   <div class="row">
-      <div class="col-md-12 m-0 p-0">
-         <div class="text-nowrap">
-            <div style="font-weight:bold; font-size:120%;top: 30px; left: 10px; display: block; position:relative;display: block;text-shadow: 1px 1px black;color:white;"
-               id="uhrzeit"></div>
-            <%= Enum.map(@rain_radar_data, fn(item) -> %>
-            <img alt="rain radar tile" class="regen1" data-timestamp="<%= Map.get(item, "timestamp") %>" src="/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1024&y=768"
-               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen2" src="/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1280&y=768"
-               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen5" src="/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1536&y=768"
-               />
-            <% end) %>
-            <br />
-            <%= Enum.map(@rain_radar_data, fn(item) -> %>
-            <img alt="rain radar tile" class="regen3" data-timestamp="<%= Map.get(item, "timestamp") %>" src="/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1024&y=1024"
-               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen4" src="/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1280&y=1024"
-               /><img alt="rain radar tile" data-timestamp="<%= Map.get(item, "timestamp") %>" class="regen6" src="/tiles?hash=<%= get_in(item, ["query", "hash"]) %>&id=<%= Map.get(item, "timestamp") %>&jpg_quality=80&production_line=<%= get_in(item, ["query", "production_line"]) %>&s=M0120&size=256&version=<%= get_in(item, ["query", "version"]) %>&wrextent=europe&x=1536&y=1024"
-               />
-            <% end) %>
-         </div>
-      </div>
-      <!-- ./col-md-12 -->
-   </div>
-   <!-- /.row -->
+  <div class="row">
+    <div class="col-md-12 m-0 p-0">
+     <div id="rainradar">
+    </div>
+    <!-- ./col-md-12 -->
+  </div>
+  <!-- /.row -->
 </div>
 <!-- /.container -->
 <div class="container">
-   <div class="row">
-      <div class="col-md-12">
-         <%= raw(@severe_weather_data) %>
-      </div>
-      <!-- ./col-md-12 -->
-   </div>
-   <!-- /.row -->
+  <div class="row">
+    <div class="col-md-12">
+      <%= raw(@severe_weather_data) %>
+    </div>
+    <!-- ./col-md-12 -->
+  </div>
+  <!-- /.row -->
 </div>
 <!-- /.container -->
 <div class="col-md-12 text-center">
-   <div id="footer">
-      &copy; 2018
-      <strong>krystof.eu</strong>
-   </div>
+  <div id="footer">
+    &copy; 2018
+    <strong>krystof.eu</strong>
+  </div>
 </div>

@@ -3,6 +3,6 @@ defmodule WetterWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")
-    assert html_response(conn, 200) =~ "im Schlossviertel"
+    assert html_response(conn, 200) =~ "Münster Wetter"
   end
 end

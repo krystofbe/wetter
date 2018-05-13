@@ -38,13 +38,19 @@ config :wetter, WetterWeb.Endpoint,
 
 # Watch static and templates for browser reloading.
 config :wetter, WetterWeb.Endpoint,
-  live_reload: [
-    patterns: [
-      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
-      ~r{priv/gettext/.*(po)$},
-      ~r{lib/wetter_web/views/.*(ex)$},
-      ~r{lib/wetter_web/templates/.*(eex)$}
-    ]
+  http: [port: 4000],
+  debug_errors: true,
+  code_reloader: true,
+  check_origin: false,
+  watchers: [
+    {"node",
+     [
+       "node_modules/webpack/bin/webpack.js",
+       "--mode",
+       "development",
+       "--watch",
+       cd: Path.expand("../assets", __DIR__)
+     ]}
   ]
 
 # Do not include metadata nor timestamps in development logs
