@@ -7,13 +7,13 @@ import { DateTime, Interval } from "luxon";
 interface ApiResponse {
   windSpeed: number;
   measuredAt: string;
-  temperature: string;
+  temperature: number;
   description: string;
 }
 
 interface UniversityData {
   windSpeed: number;
-  temperature: string;
+  temperature: number;
   description: string;
   measuredAt: string;
 }
@@ -22,7 +22,7 @@ interface State {
   universityData?: UniversityData;
   loading: boolean;
 }
-const MAX_ALLOWED_TIME_DIFFEENCE_IN_HOURS = 1;
+const MAX_ALLOWED_TIME_DIFFEENCE_IN_HOURS = 2;
 
 export default class University extends React.Component<{}, State> {
   renderError = (universityData: UniversityData) => {
@@ -50,7 +50,7 @@ export default class University extends React.Component<{}, State> {
     return (
       <div>
         <h1>
-          {universityData.temperature} &deg;C
+          {Math.round(universityData.temperature)} &deg;C
           <small className="ml-2">im Schlossviertel</small>
         </h1>
         <span className="badge badge-success mx-1">
