@@ -5,6 +5,8 @@ import RainRadarTime from "./RainradarTime";
 const tilesRow1 = ["&x=1024&y=768", "&x=1280&y=768", "&x=1536&y=768"];
 const tilesRow2 = ["&x=1024&y=1024", "&x=1280&y=1024", "&x=1536&y=1024"];
 
+const numberOfImages = tilesRow1.length + tilesRow2.length;
+
 type ImageDescriptions = {
   timestamp: string;
   query: {
@@ -70,8 +72,11 @@ export default class Rainradar extends React.Component<Props, State> {
   };
 
   onLoadImage = () => {
-    const { imagesLoaded } = this.state;
-    this.setState({ imagesLoaded: imagesLoaded + 1 });
+    const { imagesLoaded, imageDescriptions } = this.state;
+    const newImagesLoaded = imagesLoaded + 1;
+
+    const loading = newImagesLoaded < numberOfImages * imageDescriptions.length;
+    this.setState({ imagesLoaded: newImagesLoaded, loading });
   };
 
   radarTile = (currentImage, value) => {
@@ -89,24 +94,38 @@ export default class Rainradar extends React.Component<Props, State> {
           currentImage.query.version
         }&wrextent=europe${value}`}
         onLoad={this.onLoadImage}
+        onError={this.onLoadImage}
       />
     );
   };
 
   render() {
-    const loading =
-      this.state.loading || this.state.imagesLoaded < 96 ? (
-        <div className="loading-spinner my-5">
-          <i className="fa fa-refresh fa-spin fa-3x fa-fw" />
-          <span className="sr-only">Loading...</span>
+    const { imagesLoaded, imageDescriptions } = this.state;
+    const valueNow = imageDescriptions
+      ? Math.round(
+          imagesLoaded / (numberOfImages * imageDescriptions.length) * 100
+        )
+      : 0;
+    const loading = this.state.loading ? (
+      <div className="loading-spinner my-5">
+        <small>Lade Regenradar</small>
+        <div className="progress" style={{ height: 2 }}>
+          <div
+            className="progress-bar"
+            role="progressbar"
+            aria-valuenow={valueNow}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            style={{ width: `${valueNow}%` }}
+          />
         </div>
-      ) : null;
+      </div>
+    ) : null;
 
-    const allImages = this.state.loading
-      ? null
-      : this.state.imageDescriptions.map((currentImage, index) => {
+    const allImages = this.state.imageDescriptions
+      ? this.state.imageDescriptions.map((currentImage, index) => {
           let display = "none";
-          if (this.state.imagesLoaded === 96) {
+          if (!this.state.loading) {
             display = index === this.state.currentIndex ? "inline" : "none";
           }
           const row1 = tilesRow1.map(value =>
@@ -126,14 +145,15 @@ export default class Rainradar extends React.Component<Props, State> {
               {row2}
             </div>
           );
-        });
-    const time = this.state.loading ? null : this.state.imagesLoaded === 96 ? (
+        })
+      : null;
+    const time = this.state.loading ? null : (
       <RainRadarTime
         timestamp={
           this.state.imageDescriptions[this.state.currentIndex].timestamp
         }
       />
-    ) : null;
+    );
 
     return (
       <div>
