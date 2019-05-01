@@ -1,5 +1,13 @@
 FROM bitwalker/alpine-elixir-phoenix as build
 
+# Install yarn
+RUN \
+    mkdir -p /opt/app && \
+    chmod -R 777 /opt/app && \
+    apk update && \
+    npm install yarn -g --no-progress && \
+    rm -rf /var/cache/apk/*
+
 ENV MIX_ENV prod
 
 # Add the files to the image
@@ -11,10 +19,10 @@ RUN mix deps.compile
 
 WORKDIR assets
 # Cache Node deps
-RUN npm i
+RUN yarn
 
 # Compile JavaScript
-RUN npm run build
+RUN yarn run build
 
 WORKDIR ..
 # Compile app

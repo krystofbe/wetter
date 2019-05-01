@@ -1,4 +1,4 @@
-!_build/prod/rel
+_build
 .elixir_ls
 .git
 assets/node_modules
