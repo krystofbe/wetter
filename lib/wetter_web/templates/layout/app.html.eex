@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <title>M&uuml;nster-Wetter</title>
 </head>
@@ -48,7 +48,7 @@
 
 
 
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
 
 </body>
 </html>

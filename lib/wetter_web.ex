@@ -21,7 +21,7 @@ defmodule WetterWeb do
     quote do
       use Phoenix.Controller, namespace: WetterWeb
       import Plug.Conn
-      import WetterWeb.Router.Helpers
+      alias WetterWeb.Router.Helpers, as: Routes
       import WetterWeb.Gettext
     end
   end
@@ -38,7 +38,7 @@ defmodule WetterWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import WetterWeb.Router.Helpers
+      alias WetterWeb.Router.Helpers, as: Routes
       import WetterWeb.ErrorHelpers
       import WetterWeb.Gettext
     end

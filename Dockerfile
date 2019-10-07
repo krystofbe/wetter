@@ -1,55 +1,99 @@
-FROM bitwalker/alpine-elixir-phoenix as build
+##
+# Assets
 
-# Install yarn
-RUN \
-    mkdir -p /opt/app && \
-    chmod -R 777 /opt/app && \
-    apk update && \
-    npm install yarn -g --no-progress && \
-    rm -rf /var/cache/apk/*
+FROM node:10-slim AS assets
 
-ENV MIX_ENV prod
+RUN set -xe; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+    inotify-tools \
+    git \
+    ; \
+    rm -rf /var/lib/apt/lists/*
 
-# Add the files to the image
-ADD . . 
+WORKDIR /app/assets
 
-# Cache Elixir deps
-RUN mix deps.get --only prod
+RUN mkdir -p /app/priv/static
+
+COPY ./assets /app/assets
+
+ARG ENV=prod
+ARG SENTRY_DSN
+ENV NODE_ENV dev
+
+RUN yarn install
+RUN if [ "$ENV" = "prod" ]; then yarn run deploy; fi
+
+##
+# App
+
+FROM elixir:1.8-slim AS app
+
+RUN set -xe; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+    inotify-tools \
+    git \
+    make \
+    gcc \
+    libssl1.1 \
+    ca-certificates \
+    ; \
+    rm -rf /var/lib/apt/lists/*
+
+RUN mix local.rebar --force && mix local.hex --force
+
+WORKDIR /app
+RUN mkdir -p priv/static
+
+COPY --from=assets /app/priv/static/ ./priv/static/
+
+ARG ENV=prod
+ARG DEFAULT_URL_HOST
+ARG HTTP_SCHEME
+ARG HTTP_PORT
+ENV MIX_ENV $ENV
+
+# Install and compile dependencies
+COPY mix.exs mix.lock ./
+RUN mix deps.get
 RUN mix deps.compile
 
-WORKDIR assets
-# Cache Node deps
-RUN yarn
+# Install and compile the rest of the app
+COPY . ./
+RUN mix sentry_recompile
+RUN if [ "$ENV" = "prod" ]; then mix do phx.digest, distillery.release --executable; fi
 
-# Compile JavaScript
-RUN yarn run build
+##
+# Run
 
-WORKDIR ..
-# Compile app
-RUN mix compile
-RUN mix phx.digest
+FROM debian:stretch-slim
 
-# Generate release
-RUN mix release --env=prod
-
-FROM alpine:3.6
-
-RUN apk add --no-cache \
-    ncurses-libs \
-    zlib \
-    ca-certificates \
+ENV DEBIAN_FRONTEND noninteractive
+RUN set -xe; \
+    apt-get -qq update; \
+    apt-get install -y --no-install-recommends \
+    xmlstarlet \
+    poppler-utils \
+    unzip \
+    curl \
+    locales \
     openssl \
-    bash
+    ; \
+    rm -rf /var/lib/apt/lists/*
 
-WORKDIR /opt/app
+# Set LOCALE to UTF8
+RUN echo "de_DE.UTF-8 UTF-8" > /etc/locale.gen && \
+    locale-gen de_DE.UTF-8 && \
+    dpkg-reconfigure locales && \
+    /usr/sbin/update-locale LANG=de_DE.UTF-8
 
-# Set environment variables
-ENV MIX_ENV=prod
 
-COPY --from=build /opt/app/_build/prod/rel/wetter .
+ENV LC_ALL de_DE.UTF-8
 
-# Set timezone
-ENV TZ Europe/Berlin
+WORKDIR /app
 
-# Set entrypoint
+COPY --from=app /app/_build/prod/rel/wetter .
+
 ENTRYPOINT ["./bin/wetter"]
+CMD ["foreground"]

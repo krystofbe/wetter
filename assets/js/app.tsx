@@ -10,7 +10,6 @@ import Rainradar from "./components/Rainradar";
 //
 // Import dependencies
 //
-import "phoenix_html";
 
 // This code starts up the React app when it runs in a browser. It sets up the routing
 // configuration and injects the app into a DOM element.

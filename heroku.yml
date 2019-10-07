@@ -1,0 +1,6 @@
+build:
+  docker:
+    web: Dockerfile
+  config:
+    SENTRY_DSN: https://1c410c7c91c74848979ed4e827b31d40@sentry.io/1197966
+    NODE_ENV: production

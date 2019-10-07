@@ -2,18 +2,19 @@
 # They can then be used by adding `plugin MyPlugin` to
 # either an environment, or release definition, where
 # `MyPlugin` is the name of the plugin module.
-Path.join(["rel", "plugins", "*.exs"])
+~w(rel plugins *.exs)
+|> Path.join()
 |> Path.wildcard()
 |> Enum.map(&Code.eval_file(&1))
 
-use Mix.Releases.Config,
+use Distillery.Releases.Config,
   # This sets the default release built by `mix release`
   default_release: :default,
   # This sets the default environment used by `mix release`
   default_environment: Mix.env()
 
 # For a full list of config options for both releases
-# and environments, visit https://hexdocs.pm/distillery/configuration.html
+# and environments, visit https://hexdocs.pm/distillery/config/distillery.html
 
 # You may define one or more environments in this file,
 # an environment's settings will override those of a release
@@ -29,13 +30,13 @@ environment :dev do
   # dev mode.
   set(dev_mode: true)
   set(include_erts: false)
-  set(cookie: :"|NN$~0HETM}qIfe$>,tn,ZRbez${7c79sM&^ms`$>AA^jA)5A;)&DurfwrJRR9M0")
+  set(cookie: :"VT*t4D.(1`g)X~R6/]mbGjng%7XE%jo7[qE//O;dDQzaXp;@T,mTp9K6dX//`3yZ")
 end
 
 environment :prod do
   set(include_erts: true)
   set(include_src: false)
-  set(cookie: :"$GB%r4KTKW(R}4x_a$N1bE.;i7g0=yyNZtM=fX}Q975YL~?|TVO[3gJT1UQb|!j?")
+  set(cookie: :"kg&0<EZvuxj*f|~,EMK}7b]f?Xj=tX{gxR|^Z7Byc>g3y]Dq:*ldgrrq_@)=yc)K")
 end
 
 # You may define one or more releases in this file.
@@ -51,4 +52,6 @@ release :wetter do
       :runtime_tools
     ]
   )
+
+  set(commands: [])
 end

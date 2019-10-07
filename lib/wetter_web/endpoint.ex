@@ -1,15 +1,16 @@
 defmodule WetterWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :wetter
-  use Sentry.Phoenix.Endpoint
 
-  socket("/socket", WetterWeb.UserSocket)
+  socket("/socket", WetterWeb.UserSocket,
+    websocket: true,
+    longpoll: false
+  )
 
   # Serve at "/" the static files from "priv/static" directory.
   #
-  # You should set gzip to true if you are running phoenix.digest
+  # You should set gzip to true if you are running phx.digest
   # when deploying your static files in production.
-  plug(
-    Plug.Static,
+  plug(Plug.Static,
     at: "/",
     from: :wetter,
     gzip: false,
@@ -27,11 +28,10 @@ defmodule WetterWeb.Endpoint do
   plug(Plug.RequestId)
   plug(Plug.Logger)
 
-  plug(
-    Plug.Parsers,
+  plug(Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    json_decoder: Poison
+    json_decoder: Phoenix.json_library()
   )
 
   plug(Plug.MethodOverride)
@@ -40,27 +40,43 @@ defmodule WetterWeb.Endpoint do
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
-  plug(
-    Plug.Session,
+  plug(Plug.Session,
     store: :cookie,
     key: "_wetter_key",
-    signing_salt: "hGvz6Fn2"
+    signing_salt: "3tat8+Kr"
   )
 
   plug(WetterWeb.Router)
 
   @doc """
   Callback invoked for dynamically configuring the endpoint.
-
   It receives the endpoint configuration and checks if
   configuration should be loaded from the system environment.
   """
   def init(_key, config) do
     if config[:load_from_system_env] do
-      port = System.get_env("PORT") || raise "expected the PORT environment variable to be set"
-      {:ok, Keyword.put(config, :http, [:inet6, port: port])}
+      host =
+        System.get_env("DEFAULT_URL_HOST") || "#{System.get_env("HEROKU_APP_NAME")}.herokuapp.com"
+
+      url = [
+        host: host,
+        port: from_env("HTTP_PORT"),
+        scheme: from_env("HTTP_SCHEME")
+      ]
+
+      config =
+        config
+        |> Keyword.put(:http, port: from_env("PORT"))
+        |> Keyword.put(:secret_key_base, from_env("SECRET_KEY_BASE"))
+        |> Keyword.put(:url, url)
+
+      {:ok, config}
     else
       {:ok, config}
     end
+  end
+
+  defp from_env(env) do
+    System.get_env(env) || raise "expected the #{env} environment variable to be set"
   end
 end
