@@ -1,0 +1,15 @@
+- hosts: 127.0.0.1
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Build and upload docker image
+      docker_image:
+        debug: yes
+        path: ./
+        name: blackboxms/ubuntu-nodejs-elixir
+        repository: blackboxms/ubuntu-nodejs-elixir
+        tag: 1.9.2
+        pull: yes
+        push: yes
+        force: yes

@@ -1,0 +1,8 @@
+---
+all:
+  hosts:
+    wetter.krystof.eu
+  vars:
+    local_build_dir: ~/repo
+    ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
+    ansible_user: deploy

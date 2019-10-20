@@ -45,7 +45,6 @@ defmodule Wetter.Mixfile do
       {:solar, "~> 0.1.0"},
       {:poison, "~> 3.1"},
       {:sentry, "~> 7.0"},
-      {:distillery, "~> 2.0"},
       {:jason, "~> 1.0"}
     ]
   end

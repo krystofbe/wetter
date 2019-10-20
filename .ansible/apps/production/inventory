@@ -1,0 +1,7 @@
+---
+all:
+  hosts:
+    wetter.krystof.eu
+  vars:
+    local_build_dir: /tmp/wetter_build
+    ansible_user: deploy
