@@ -40,3 +40,8 @@
     name: "{{ releases_dir }}/{{ item }}"
     state: absent
   with_items: "{{ ls_output.stdout_lines }}"
+
+- name: Update traefik configuration
+  template:
+    src: traefik-dynamic.toml.j2
+    dest: "{{ traefik_dynamic_providers_dir }}/{{ app_name }}.toml"

@@ -31,6 +31,6 @@ sendgrid_api_key: !vault |
           62633861633164333339626131316338636261663461323938396264323131613937636466623631
           61323137383235366332303765386437323237366635643132336637383161343761383666646530
           64306164363330373137
-releases_dir: "/u/apps/wetter/releases"
-current_dir: "/u/apps/wetter/current"
+releases_dir: "/u/apps/{{ app_name }}/releases"
+current_dir: "/u/apps/{{ app_name }}/current"
 releases_to_keep: 10

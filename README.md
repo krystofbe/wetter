@@ -11,13 +11,21 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
+## (Setup)
+
+install docker-py: `pip install docker`
+
+### Server setup
+
+    Refer to `git/krystofbe-infrastructure`
+
 ## Build
 
-`ansible-playbook -i apps/build/inventory apps/build/build.yml -vvv`
+`./bin/build`
 
 ## Deploy
 
-`ansible-playbook -i apps/production/inventory apps/production/deploy.yml -vvv`
+`./bin/deploy`
 
 ## Learn more
 

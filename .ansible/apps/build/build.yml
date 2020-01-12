@@ -1,10 +1,9 @@
----
 - hosts: all
   gather_facts: no
   vars:
-    local_build_dir: "/tmp/wetter_build"
-    git_repo: "git@github.com:krystofbe/wetter.git"
-    production_vars_file: "../production/host_vars/wetter.krystof.eu"
+    local_build_dir: "/tmp/{{ app_name }}"
+    git_repo: "{{ git_repo }}"
+    production_vars_file: "../production/host_vars/{{ app_name }}.krystof.eu"
 
   pre_tasks:
     - command: date +"0.1.0-%Y.%-m.%-d.%-H.%-M"
@@ -14,7 +13,7 @@
     - set_fact:
         build_version: "{{ build_version_cmd.stdout }}"
 
-    - name: Cd Checkout the master branch from git repo
+    - name: Checkout the master branch from git repo
       delegate_to: localhost
       git:
         repo: "{{ git_repo }}"
@@ -33,4 +32,4 @@
     - role: build_app/0.0.1
       vars:
         mix_env: prod
-        app_name: wetter
+        

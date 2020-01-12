@@ -5,33 +5,21 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y curl locales
 
 # Set locale
-RUN locale-gen de_DE.UTF-8
-ENV LANG=de_DE.UTF-8
-ENV LANGUAGE=de_DE:en
-ENV LC_ALL=de_DE.UTF-8
+RUN locale-gen en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 ENV HOME=/root
 ENV PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
 
 # Install dependencies
 RUN apt-get update && \
     apt-get install -y aptitude ca-certificates python python-dev python-pip \
-    python-virtualenv \
-    gpg \
-    git \
-    nodejs \
-    automake autoconf libreadline-dev libncurses-dev libssl-dev libyaml-dev libxslt-dev libffi-dev libtool unixodbc-dev unzip && \
+                    python-virtualenv \
+                    git \
+                    nodejs \
+                    automake autoconf libreadline-dev libncurses-dev libssl-dev libyaml-dev libxslt-dev libffi-dev libtool unixodbc-dev unzip && \
     rm -rf /var/lib/apt/lists/*
-
-
-# install yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-RUN apt update
-
-RUN apt install --no-install-recommends yarn
-
 
 # Install asdf
 RUN git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf --branch v0.7.2
@@ -45,14 +33,14 @@ RUN asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git && \
 
 # Install erlang
 RUN asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git && \
-    asdf install erlang 22.1.3 && \
-    asdf global erlang 22.1.3 && \
+    asdf install erlang 22.0.2 && \
+    asdf global erlang 22.0.2 && \
     rm -rf  /tmp/*
 
 # Install elixir
 RUN asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git && \
-    asdf install elixir 1.9.2 && \
-    asdf global elixir 1.9.2 && \
+    asdf install elixir 1.9.0 && \
+    asdf global elixir 1.9.0 && \
     rm -rf  /tmp/*
 
 # Install hex and rebar

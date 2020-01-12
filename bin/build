@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+
+cd .ansible
+ansible-playbook -i apps/build/inventory apps/build/build.yml --extra-vars "app_name=wetter git_repo=git@github.com:krystofbe/wetter.git"

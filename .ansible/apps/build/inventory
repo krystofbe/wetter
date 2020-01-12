@@ -4,5 +4,5 @@ all:
     build_server
   vars:
     ansible_connection: docker
-    ansible_host: wetter_build_server
+    ansible_host: build_server
     build_dir: "/app/build"

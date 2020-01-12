@@ -5,11 +5,10 @@
   tasks:
     - name: Build and upload docker image
       docker_image:
-        debug: yes
-        path: ./
-        name: blackboxms/ubuntu-nodejs-elixir
-        repository: blackboxms/ubuntu-nodejs-elixir
-        tag: 1.9.2
-        pull: yes
-        push: yes
-        force: yes
+         path: ./
+         name: blackboxms/ubuntu-nodejs-elixir
+         repository: blackboxms/ubuntu-nodejs-elixir
+         tag: 1.9.0
+         pull: yes
+         push: yes
+         force: yes

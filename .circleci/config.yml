@@ -25,7 +25,7 @@ jobs:
       # Build
       - run: cd ~/repo && git reset --hard && git clean -dfx
       - run: echo "$VAULT_PASS" | base64 -d > ~/repo/.ansible/.vault_pass.txt
-      - run: cd .ansible && ansible-playbook -i apps/build/inventory-ci apps/build/build.yml -vvv
+      - run: cd .ansible && ansible-playbook -i apps/build/inventory-ci --extra-vars "app_name=wetter git_repo=git@github.com:krystofbe/wetter.git" apps/build/build.yml -vvv
 
       - save_cache:
           key: deps-build
@@ -38,5 +38,5 @@ jobs:
           name: "Deploy master to production"
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              cd .ansible && ansible-playbook -i apps/production/inventory-ci apps/production/deploy.yml -vvv;
+              cd .ansible && ansible-playbook -i apps/production/inventory-ci --extra-vars "app_name=wetter git_repo=git@github.com:krystofbe/wetter.git" apps/production/deploy.yml -vvv;
             fi

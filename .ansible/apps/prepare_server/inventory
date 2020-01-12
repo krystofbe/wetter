@@ -1,8 +1,0 @@
----
-all:
-  hosts:
-    wetter.krystof.eu
-  vars:
-    ansible_user: krystof
-    ansible_become: yes
-    port: 5000

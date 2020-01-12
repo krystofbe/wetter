@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+HOST=wetter.krystof.eu
+
+cd .ansible
+
+docker run --rm -d -t -i -p 4000:4000 --name $HOST blackboxms/ubuntu-nodejs-elixir:1.9.2
+
+# Add deploy user
+docker exec $HOST bash -c "useradd -ms /bin/bash deploy"
+
+# Add releases directory
+docker exec $HOST bash -c "mkdir -p /u/apps/wetter/releases && chown deploy -R /u/apps/wetter"
+
+ssh wetter.krystof.eu "mkdir -p /u/apps/wetter/releases/"
+ssh wetter.krystof.eu "chown -R deploy /u/apps/wetter"
