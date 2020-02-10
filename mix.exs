@@ -45,7 +45,8 @@ defmodule Wetter.Mixfile do
       {:solar, "~> 0.1.0"},
       {:poison, "~> 3.1"},
       {:sentry, "~> 7.0"},
-      {:jason, "~> 1.0"}
+      {:jason, "~> 1.0"},
+      {:distillery, "~> 2.1"}
     ]
   end
 
@@ -57,8 +58,7 @@ defmodule Wetter.Mixfile do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      test: ["test"],
-      sentry_recompile: ["deps.compile sentry --force", "compile --warnings-as-errors"]
+      test: ["test"]
     ]
   end
 end

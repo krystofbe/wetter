@@ -11,6 +11,7 @@ use Mix.Config
 # before starting your production server.
 config :wetter, WetterWeb.Endpoint,
   url: [host: "wetter.krystof.eu", port: 443],
+  load_from_system_env: true,
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
@@ -64,4 +65,3 @@ config :phoenix, :serve_endpoints, true
 
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
-import_config "prod.secret.exs"

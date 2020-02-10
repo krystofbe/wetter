@@ -1,8 +1,0 @@
----
-all:
-  hosts:
-    build_server
-  vars:
-    ansible_connection: local
-    ansible_host: 127.0.0.1
-    build_dir: ~/repo

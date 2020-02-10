@@ -1,8 +1,0 @@
----
-all:
-  hosts:
-    wetter.krystof.eu
-  vars:
-    local_build_dir: "/tmp/{{ app_name }}"
-    ansible_user: deploy
-    traefik_dynamic_providers_dir: /etc/traefik/providers

@@ -1,8 +1,0 @@
----
-all:
-  hosts:
-    build_server
-  vars:
-    ansible_connection: docker
-    ansible_host: build_server
-    build_dir: "/app/build"

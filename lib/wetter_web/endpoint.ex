@@ -55,8 +55,7 @@ defmodule WetterWeb.Endpoint do
   """
   def init(_key, config) do
     if config[:load_from_system_env] do
-      host =
-        System.get_env("DEFAULT_URL_HOST") || "#{System.get_env("HEROKU_APP_NAME")}.herokuapp.com"
+      host = System.get_env("DEFAULT_URL_HOST")
 
       url = [
         host: host,
