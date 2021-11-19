@@ -24,7 +24,7 @@ install docker-py: `pip install docker`
 Retrieve the login command to use to authenticate your Docker client to your registry.
 Use the AWS CLI:
 
-\$(aws ecr get-login --no-include-email --region eu-central-1)
+aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 713759161179.dkr.ecr.eu-central-1.amazonaws.com
 
 Note: If you receive an "Unknown options: --no-include-email" error when using the AWS CLI, ensure that you have the latest version installed. Learn more
 Build your Docker image using the following command. For information on building a Docker file from scratch see the instructions here

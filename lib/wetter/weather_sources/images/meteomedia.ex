@@ -1,6 +1,6 @@
 defmodule Wetter.Images.Meteomedia do
   require Logger
-  @url "http://wetterstationen.meteomedia.de/messnetz/vorhersagegrafik/103130.png?ver=1520770212"
+  @url "https://wetterstationen.meteomedia.de/messnetz/vorhersagegrafik/103130.png?ver=1623143405"
   def vorhersagegrafik() do
     case HTTPoison.get(@url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->

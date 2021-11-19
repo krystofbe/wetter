@@ -29,7 +29,6 @@ defmodule WetterWeb.Router do
   scope "/api", WetterWeb do
     pipe_through(:api)
     get("/university_data", ApiController, :university_data)
-    get("/rainradar", ApiController, :rainradar)
   end
 
   # Other scopes may use custom stacks.

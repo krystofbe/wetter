@@ -8,47 +8,79 @@
   <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <title>M&uuml;nster-Wetter</title>
+
+
+  <!-- Matomo -->
+  <script type="text/javascript">
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function () {
+      var u = "//analytics.blackbox.ms/";
+      _paq.push(['setTrackerUrl', u + 'analysisServer']);
+      _paq.push(['setSiteId', '8']);
+      var d = document,
+        g = d.createElement('script'),
+        s = d.getElementsByTagName('script')[0];
+      g.type = 'text/javascript';
+      g.async = true;
+      g.src = u + 'analysisClient';
+      s.parentNode.insertBefore(g, s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
 </head>
 
 <body>
-    <header>
-      <!-- Fixed navbar -->
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Münster Wetter</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav mr-auto">
-                      <li class="nav-item">
-              <a class="nav-link disabled" href="#">Home</a>
-            </li>
-          </ul>
-       
-        </div>
-      </nav>
-    </header> 
 
-      <main class="container">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
-
-    <%= if get_flash(@conn, :info) do %>
-    <p class="alert app__onnest-info"
-       role="alert">
-      <%= get_flash(@conn, :info) %>
-    </p>
-    <%end %>
-    <%= if get_flash(@conn, :error) do %>
-    <p class="alert app__onnest-danger"
-       role="alert">
-      <%= get_flash(@conn, :error) %>
-    </p>
-    <%end %>
+  <!-- Matomo Image Tracker-->
+  <noscript>
+    <img referrerpolicy="no-referrer-when-downgrade"
+      src="https://analytics.blackbox.ms/analysisServer?idsite=8&amp;rec=1" style="border:0" alt="" />
+  </noscript>
+  <!-- End Matomo -->
 
 
+  <header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">Münster Wetter</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Home</a>
+          </li>
+        </ul>
 
-    <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <%= render @view_module, @view_template, assigns %>
+  </main>
+
+  <%= if get_flash(@conn, :info) do %>
+  <p class="alert app__onnest-info" role="alert">
+    <%= get_flash(@conn, :info) %>
+  </p>
+  <%end %>
+  <%= if get_flash(@conn, :error) do %>
+  <p class="alert app__onnest-danger" role="alert">
+    <%= get_flash(@conn, :error) %>
+  </p>
+  <%end %>
+
+
+
+  <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
 
 </body>
+
 </html>

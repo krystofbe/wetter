@@ -59,14 +59,9 @@ code {
   padding: 15px;
   margin: 0 auto;
 }
-.rainradar__headline {
-  font-weight: bold;
-  font-size: 120%;
-  top: 30px;
-  left: 10px;
-  display: block;
-  position: relative;
-  display: block;
-  text-shadow: 1px 1px black;
-  color: white;
+´
+#rainradar {
+  width: 100%;
+  min-height: 630px;
+  border: 0;
 }
