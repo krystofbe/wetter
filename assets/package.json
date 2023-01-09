@@ -13,7 +13,7 @@
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
     "jquery": "^3.3.1",
-    "luxon": "^1.2.0",
+    "luxon": "^2.5.2",
     "popper.js": "^1.12.9",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
